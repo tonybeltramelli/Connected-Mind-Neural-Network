@@ -36,6 +36,11 @@ public class Maze extends Sprite
 
     public Image getSquare(int xOrigin, int yOrigin, int width, int height)
     {
+        xOrigin = xOrigin > 0 ? xOrigin : 0;
+        yOrigin = yOrigin > 0 ? yOrigin : 0;
+        width = xOrigin + width <= _width ? width : _width - xOrigin;
+        height = yOrigin + height <= _height ? height : _height - yOrigin;
+
         WritableImage image = new WritableImage(width, height);
         PixelWriter writer = image.getPixelWriter();
 

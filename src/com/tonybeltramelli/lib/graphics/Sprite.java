@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Tony Beltramelli www.tonybeltramelli.com - 31/03/2014
+ * @author Tony Beltramelli www.tonybeltramelli.com - created 31/03/2014
  */
 public class Sprite
 {
