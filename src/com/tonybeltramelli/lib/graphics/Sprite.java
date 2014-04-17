@@ -119,7 +119,7 @@ public class Sprite
 
         _group.setRotate(_angle);
 
-        //_angle = _angle == 360 || _angle == -360 ? 0 : _angle;
+        _angle = _angle == 360 || _angle == -360 ? 0 : _angle;
     }
 
     public Group getGroup()
@@ -130,5 +130,20 @@ public class Sprite
     public boolean isVisible()
     {
         return _group.isVisible();
+    }
+
+    public double getX()
+    {
+        return _x;
+    }
+
+    public double getY()
+    {
+        return _y;
+    }
+
+    public int getAngle()
+    {
+        return _angle;
     }
 }

@@ -1,6 +1,8 @@
 package com.tonybeltramelli.lab.element;
 
+import com.tonybeltramelli.lab.config.Config;
 import com.tonybeltramelli.lab.display.Environment;
+import com.tonybeltramelli.lab.element.brain.Brain;
 import com.tonybeltramelli.lib.engine.Updatable;
 import com.tonybeltramelli.lib.graphics.Sprite;
 import com.tonybeltramelli.lib.util.UMath;
@@ -20,32 +22,46 @@ import java.awt.Point;
  */
 public class Organism extends Sprite implements Updatable
 {
-    private final int _SIZE = 40;
+    private final int _SIZE = 30;
     private final int _SENSOR_SIZE = _SIZE / 4;
     private Environment _environment;
     private Circle _leftSensor;
     private Circle _rightSensor;
+    private Circle _centerSensor;
+    private Brain _brain;
+    private int _lifeTime = 0;
 
-    public Organism(Environment environment)
+    public Organism(Environment environment, Brain brain)
     {
         _environment = environment;
 
-        Color bodyColor = Color.web("0x4e4e4e");
-        Color sensorColor = Color.web("0xffb400");
+        Color bodyColor = Color.web("0x4e4e4e"); //Color.rgb(78, 78, 78, 0.5);
+        Color sensorColor = Color.web("0xffb400"); //Color.rgb(255, 180, 0, 0.5)
 
         Rectangle rectangle = new Rectangle(_SIZE, _SIZE, bodyColor);
 
         _leftSensor = new Circle(0, 0, _SENSOR_SIZE, sensorColor);
+        _leftSensor.setTranslateX(-_SENSOR_SIZE);
+        _leftSensor.setTranslateY(-_SENSOR_SIZE);
 
         _rightSensor = new Circle(0, 0, _SENSOR_SIZE, sensorColor);
-        _rightSensor.setTranslateX(_SIZE);
+        _rightSensor.setTranslateX(_SIZE + _SENSOR_SIZE);
+        _rightSensor.setTranslateY(-_SENSOR_SIZE);
+
+        _centerSensor = new Circle(0, 0, _SENSOR_SIZE, sensorColor);
+        _centerSensor.setTranslateX(_SIZE / 2);
+        _centerSensor.setTranslateY(_SIZE / 2);
 
         addGraphics(rectangle);
         addGraphics(_leftSensor);
         addGraphics(_rightSensor);
+        addGraphics(_centerSensor);
+
+        _brain = brain;
 
         //_displayVisionZones();
-        _handleEvents();
+
+        if(Config.USE_KEYBOARD_CONTROL) _handleEvents();
     }
 
     private void _handleEvents()
@@ -55,23 +71,32 @@ public class Organism extends Sprite implements Updatable
         {
             public void handle(KeyEvent key)
             {
-                switch (key.getCode())
+                switch(key.getCode())
                 {
                     case UP:
                         _move(1, 1);
                         break;
                     case DOWN:
-                        _move(-1, -1);
+                        _move(0, 0);
                         break;
                     case LEFT:
-                        _move(0, 1);
+                        _move(1, 0);
                         break;
                     case RIGHT:
-                        _move(1, 0);
+                        _move(0, 1);
                         break;
                     default:
                         break;
                 }
+
+                Image dataLeft = _getDataFromSensor(_leftSensor);
+                Image dataRight = _getDataFromSensor(_rightSensor);
+
+                int inputLeft = _checkEnvironment(dataLeft);
+                int inputRight = _checkEnvironment(dataRight);
+
+                int[] outputs = _brain.run(new int[]{inputLeft, inputRight});
+                System.out.println(outputs[0] + ", " + outputs[1]);
             }
         });
     }
@@ -79,18 +104,46 @@ public class Organism extends Sprite implements Updatable
     @Override
     public void update()
     {
-        Point leftPos = _getSensorPosition(_leftSensor);
-        Point rightPos = _getSensorPosition(_rightSensor);
+        _lifeTime ++;
 
-        Image leftSensorData = _environment.getSurroundingEnvironment((int) _x + leftPos.x, (int) _y + leftPos.y, _SENSOR_SIZE, _SENSOR_SIZE);
-        Image rightSensorData = _environment.getSurroundingEnvironment((int) _x + rightPos.x, (int) _y + rightPos.y, _SENSOR_SIZE, _SENSOR_SIZE);
+        _checkCollision();
 
-        int inputLeft = _checkEnvironment(leftSensorData);
-        int inputRight = _checkEnvironment(rightSensorData);
+        Image dataLeft = _getDataFromSensor(_leftSensor);
+        Image dataRight = _getDataFromSensor(_rightSensor);
 
-        _move(inputLeft, inputRight);
+        _environment.displayOrganismVision(dataLeft, dataRight);
 
-        //_environment.displayOrganismVision(leftSensorData, rightSensorData);
+        if(Config.USE_KEYBOARD_CONTROL) return;
+
+        int inputLeft = _checkEnvironment(dataLeft);
+        int inputRight = _checkEnvironment(dataRight);
+
+        if(Config.USE_NEURAL_NETWORK)
+        {
+            int[] outputs = _brain.run(new int[]{inputLeft, inputRight});
+            _move(outputs[0], outputs[1]);
+        } else
+        {
+            _move(inputLeft, inputRight);
+        }
+    }
+
+    private void _checkCollision()
+    {
+        Image dataCenter = _getDataFromSensor(_centerSensor);
+
+        if(_checkEnvironment(dataCenter) == 0)
+        {
+            _environment.organismHasCollided();
+        }
+    }
+
+    private Image _getDataFromSensor(Shape sensor)
+    {
+        Point position = _getSensorPosition(sensor);
+        Image sensorData = _environment.getSurroundingEnvironment((int) _x + position.x, (int) _y + position.y, _SENSOR_SIZE, _SENSOR_SIZE);
+
+        return sensorData;
     }
 
     private void _displayVisionZones()
@@ -129,16 +182,16 @@ public class Organism extends Sprite implements Updatable
 
     private void _move(int leftWheel, int rightWheel)
     {
-        if (rightWheel == 1 && leftWheel == 1)
+        if(rightWheel == 1 && leftWheel == 1)
         {
             _moveForward();
-        } else if (rightWheel == 0 && leftWheel == 1)
+        } else if(rightWheel == 0 && leftWheel == 1)
         {
             _turnLeft();
-        } else if (rightWheel == 1 && leftWheel == 0)
+        } else if(rightWheel == 1 && leftWheel == 0)
         {
             _turnRight();
-        } else if (rightWheel == 0 && leftWheel == 0)
+        } else if(rightWheel == 0 && leftWheel == 0)
         {
             _moveBackward();
         }
@@ -182,13 +235,13 @@ public class Organism extends Sprite implements Updatable
         int height = (int) image.getHeight();
         Color color;
 
-        for (int x = 0; x < width; x++)
+        for(int x = 0; x < width; x++)
         {
-            for (int y = 0; y < height; y++)
+            for(int y = 0; y < height; y++)
             {
                 color = reader.getColor(x, y);
 
-                if (color.getRed() == 0.0 && color.getGreen() == 0.0 && color.getGreen() == 0.0)
+                if(color.getRed() == 0.0 && color.getGreen() == 0.0 && color.getGreen() == 0.0)
                 {
                     return 0;
                 }
@@ -196,5 +249,14 @@ public class Organism extends Sprite implements Updatable
         }
 
         return 1;
+    }
+
+    public int getScore()
+    {
+        double xDec = _x - Config.START_POSITION_X;
+        double yDec = _y - Config.START_POSITION_Y;
+        double travel = Math.sqrt(Math.pow(xDec, 2) + Math.pow(yDec, 2));
+
+        return (int) travel + _lifeTime;
     }
 }

@@ -10,4 +10,6 @@ public interface Environment
     public Image getSurroundingEnvironment(int x, int y, int width, int height);
 
     public void displayOrganismVision(Image left, Image right);
+
+    public void organismHasCollided();
 }

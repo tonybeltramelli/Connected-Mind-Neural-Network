@@ -33,6 +33,11 @@ public class Engine
         _updatables.add(updatable);
     }
 
+    public void remove(Updatable updatable)
+    {
+        _updatables.remove(updatable);
+    }
+
     public void run()
     {
         _isRunning = true;

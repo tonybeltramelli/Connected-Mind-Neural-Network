@@ -5,6 +5,11 @@ package com.tonybeltramelli.lib.util;
  */
 public class UMath
 {
+    public static double sigmoid(double x)
+    {
+        return (1 / (1 + Math.pow(Math.E, (-1 * x))));
+    }
+
     public static double percent(double current, double total)
     {
         return (current * 100) / total;
@@ -12,10 +17,10 @@ public class UMath
 
     public static double boundaryRestrict(double n, double min, double max)
     {
-        if (n < min)
+        if(n < min)
         {
             n = min;
-        } else if (n > max)
+        } else if(n > max)
         {
             n = max;
         }
@@ -32,7 +37,7 @@ public class UMath
         int i = values.length;
         int n = values.length;
         double total = 0;
-        while (--i != -1) total += values[i];
+        while(--i != -1) total += values[i];
         return total / n;
     }
 
