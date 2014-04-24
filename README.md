@@ -3,7 +3,7 @@ Connected-Mind
 
 Artificial Life project implementing Artificial Intelligence and Evolutionary algorithms
 
-##### FlexArray data structure usage
+### FlexArray data structure usage
 Custom data structure allowing ArrayList to be filled at any index even if there is no element at the said index.  
 com.tonybeltramelli.lib.util.FlexArray
 
@@ -35,7 +35,7 @@ System.out.println(flexArray);
 
 ```
 
-##### Neural Network usage
+### Neural Network usage
 com.tonybeltramelli.lib.neural
 
 ```java
