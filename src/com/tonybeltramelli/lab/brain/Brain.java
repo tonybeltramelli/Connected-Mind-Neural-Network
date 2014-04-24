@@ -19,7 +19,8 @@ public class Brain extends NeuralNetwork
         _complexNetwork();
         //_simpleNetwork();
 
-        System.out.println(" ----> "+getEncoding());
+        //System.out.println(" ----> "+getEncoding());
+        generate(getEncoding());
     }
 
     private void _simpleNetwork()

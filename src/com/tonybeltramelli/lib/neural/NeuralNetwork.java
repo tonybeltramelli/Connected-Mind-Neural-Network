@@ -1,5 +1,6 @@
 package com.tonybeltramelli.lib.neural;
 
+import com.tonybeltramelli.lib.util.FlexArray;
 import com.tonybeltramelli.lib.util.RegExp;
 
 import java.util.ArrayList;
@@ -11,9 +12,9 @@ import java.util.regex.Matcher;
  */
 public abstract class NeuralNetwork implements Encodable
 {
-    private List<InputNeuron> _inputNeurons;
-    private List<OutputNeuron> _outputNeurons;
-    private List<Neuron> _hiddenNeurons;
+    private FlexArray<InputNeuron> _inputNeurons;
+    private FlexArray<OutputNeuron> _outputNeurons;
+    private FlexArray<Neuron> _hiddenNeurons;
 
     public NeuralNetwork()
     {
@@ -67,9 +68,9 @@ public abstract class NeuralNetwork implements Encodable
         if(_outputNeurons != null) _outputNeurons.clear();
         if(_hiddenNeurons != null) _hiddenNeurons.clear();
 
-        _inputNeurons = new ArrayList<InputNeuron>();
-        _outputNeurons = new ArrayList<OutputNeuron>();
-        _hiddenNeurons = new ArrayList<Neuron>();
+        _inputNeurons = new FlexArray<InputNeuron>();
+        _outputNeurons = new FlexArray<OutputNeuron>();
+        _hiddenNeurons = new FlexArray<Neuron>();
     }
 
     private void _reset()
@@ -121,7 +122,7 @@ public abstract class NeuralNetwork implements Encodable
 
         while(dnaMatcher.find())
         {
-            dnaGroup = dnaMatcher.group(0);
+            dnaGroup = dnaMatcher.group();
 
             //start neuron
             dnaSegment = dnaGroup.substring(0, dnaGroup.indexOf('w'));
@@ -134,7 +135,7 @@ public abstract class NeuralNetwork implements Encodable
 
             while(connectionMatcher.find())
             {
-                dnaGroup = connectionMatcher.group(0);
+                dnaGroup = connectionMatcher.group();
 
                 weightMatcher = RegExp.parse("([who][0-9]+)", dnaGroup);
 
@@ -143,7 +144,7 @@ public abstract class NeuralNetwork implements Encodable
 
                 while(weightMatcher.find())
                 {
-                    connection[counter] = weightMatcher.group(0);
+                    connection[counter] = weightMatcher.group();
                     counter ++;
                 }
 
@@ -152,12 +153,19 @@ public abstract class NeuralNetwork implements Encodable
         }
     }
 
-    private static void _createNeuron(char ch, int id)
+    private void _createNeuron(char ch, int id)
     {
+        Neuron neuron;
+
         switch(ch)
         {
             case INPUT:
                 System.out.println("create input neuron " + id);
+
+                //if(_inputNeurons.size() >)
+
+                //_inputNeurons.add(id - 1, ch);
+
                 break;
             case HIDDEN:
                 System.out.println("create hidden neuron " + id);
