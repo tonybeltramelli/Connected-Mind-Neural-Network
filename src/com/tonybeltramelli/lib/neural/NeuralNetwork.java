@@ -113,7 +113,7 @@ public class NeuralNetwork implements Encodable
     {
         _clear();
 
-        Matcher dnaMatcher = RegExp.parse("([iho][0-9]+([w][0-9]+[ho][0-9]+))([w][0-9]+[ho][0-9]+)*", encoding);
+        Matcher dnaMatcher = RegExp.parse(DNA_REG_EXP, encoding);
         Matcher connectionMatcher;
         Matcher weightMatcher;
         String dnaGroup;
@@ -123,16 +123,16 @@ public class NeuralNetwork implements Encodable
         {
             dnaGroup = dnaMatcher.group();
 
-            neuronName = dnaGroup.substring(0, dnaGroup.indexOf('w'));
+            neuronName = dnaGroup.substring(0, dnaGroup.indexOf(WEIGHT));
             _createNeuron(neuronName);
 
-            connectionMatcher = RegExp.parse("([w][0-9]+[ho][0-9]+)", dnaGroup.substring(dnaGroup.indexOf('w'), dnaGroup.length()));
+            connectionMatcher = RegExp.parse(CONNECTION_REG_EXP, dnaGroup.substring(dnaGroup.indexOf(WEIGHT), dnaGroup.length()));
 
             while(connectionMatcher.find())
             {
                 dnaGroup = connectionMatcher.group();
 
-                weightMatcher = RegExp.parse("([who][0-9]+)", dnaGroup);
+                weightMatcher = RegExp.parse(WEIGHT_REG_EXP, dnaGroup);
 
                 String[] connection = new String[2];
                 int counter = 0;

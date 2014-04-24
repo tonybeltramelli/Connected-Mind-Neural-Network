@@ -14,8 +14,6 @@ public class Brain extends NeuralNetwork
     {
         super();
 
-        //generate("i1w1h1w1h2");
-
         //_complexNetwork();
         //_simpleNetwork();
 
