@@ -44,9 +44,9 @@ public class Maze extends Sprite
         WritableImage image = new WritableImage(width, height);
         PixelWriter writer = image.getPixelWriter();
 
-        for (int x = xOrigin; x < xOrigin + width; x++)
+        for(int x = xOrigin; x < xOrigin + width; x++)
         {
-            for (int y = yOrigin; y < yOrigin + height; y++)
+            for(int y = yOrigin; y < yOrigin + height; y++)
             {
                 Color color = _pixels.getColor(x, y);
                 writer.setColor(x - xOrigin, y - yOrigin, color);

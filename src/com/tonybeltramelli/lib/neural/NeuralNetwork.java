@@ -1,7 +1,10 @@
 package com.tonybeltramelli.lib.neural;
 
+import com.tonybeltramelli.lib.util.RegExp;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 /**
  * @author Tony Beltramelli www.tonybeltramelli.com - created 13/04/2014
@@ -109,46 +112,59 @@ public abstract class NeuralNetwork implements Encodable
     {
         _clear();
 
-        Neuron neuron;
-        char ch;
+        Matcher dnaMatcher = RegExp.parse("([iho][0-9]+([w][0-9]+[ho][0-9]+))([w][0-9]+[ho][0-9]+)*", encoding);
+        Matcher connectionMatcher;
+        Matcher weightMatcher;
+        String dnaGroup;
+        String dnaSegment;
         int val;
 
-        for(int i = 0; i < encoding.length(); i++)
+        while(dnaMatcher.find())
         {
-            ch = encoding.charAt(i);
+            dnaGroup = dnaMatcher.group(0);
 
-            if(ch == INPUT)
+            //start neuron
+            dnaSegment = dnaGroup.substring(0, dnaGroup.indexOf('w'));
+            val = Integer.parseInt(dnaSegment.substring(1, dnaSegment.length()));
+
+            _createNeuron(dnaSegment.charAt(0), val);
+
+            //connected neurons
+            connectionMatcher = RegExp.parse("([w][0-9]+[ho][0-9]+)", dnaGroup.substring(dnaGroup.indexOf('w'), dnaGroup.length()));
+
+            while(connectionMatcher.find())
             {
-                if(i + 3 <= encoding.length() && encoding.substring(i + 1, i + 3).matches("([0-9]+)"))
+                dnaGroup = connectionMatcher.group(0);
+
+                weightMatcher = RegExp.parse("([who][0-9]+)", dnaGroup);
+
+                String[] connection = new String[2];
+                int counter = 0;
+
+                while(weightMatcher.find())
                 {
-                    val = Integer.valueOf(encoding.substring(i + 1, i + 3));
-
-                    System.out.println("here 1 : "+val);
-                }else{
-                    val = Integer.valueOf(encoding.substring(i + 1, i + 2));
-
-                    System.out.println("here 2 : "+val);
+                    connection[counter] = weightMatcher.group(0);
+                    counter ++;
                 }
 
-                if(val > _inputNeurons.size())
-                {
-                    System.out.println("create input neuron "+val);
-
-                    neuron = new InputNeuron();
-                    _inputNeurons.add((InputNeuron) neuron);
-                }
+                System.out.println("connection "+connection[1]+" "+connection[0]);
             }
+        }
+    }
 
-            if(ch == OUTPUT)
-            {
-                val = Integer.valueOf(encoding.charAt(i + 1));
-
-                if(val > _outputNeurons.size())
-                {
-                    neuron = new OutputNeuron();
-                    _outputNeurons.add((OutputNeuron) neuron);
-                }
-            }
+    private static void _createNeuron(char ch, int id)
+    {
+        switch(ch)
+        {
+            case INPUT:
+                System.out.println("create input neuron " + id);
+                break;
+            case HIDDEN:
+                System.out.println("create hidden neuron " + id);
+                break;
+            case OUTPUT:
+                System.out.println("create output neuron " + id);
+                break;
         }
     }
 }
