@@ -1,11 +1,9 @@
 package com.tonybeltramelli.lib.neural;
 
-import com.tonybeltramelli.lib.neural.neuron.Neuron;
-
 /**
  * @author Tony Beltramelli www.tonybeltramelli.com - created 13/04/2014
  */
-public class Synapse
+public class Synapse implements Encodable
 {
     private int _weigth = 1;
     private double _value = 0;
@@ -42,5 +40,11 @@ public class Synapse
     public double getValue()
     {
         return _value;
+    }
+
+    @Override
+    public String getEncoding()
+    {
+        return WEIGHT + "" + _weigth + _neuronTo.getName();
     }
 }

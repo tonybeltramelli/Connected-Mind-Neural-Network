@@ -4,6 +4,7 @@ import javafx.scene.CacheHint;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,6 +112,11 @@ public class Sprite
 
         _group.setTranslateX(_x);
         _group.setTranslateY(_y);
+    }
+
+    public Point getPosition()
+    {
+        return new Point((int)_x, (int)_y);
     }
 
     protected void _setRotation(int angle)

@@ -1,9 +1,7 @@
 package com.tonybeltramelli.lab.display;
 
+import com.tonybeltramelli.lab.brain.Brain;
 import com.tonybeltramelli.lab.config.Config;
-import com.tonybeltramelli.lab.element.Maze;
-import com.tonybeltramelli.lab.element.Organism;
-import com.tonybeltramelli.lab.element.brain.Brain;
 import com.tonybeltramelli.lib.graphics.ImageSprite;
 import com.tonybeltramelli.lib.graphics.ViewPort;
 import javafx.scene.image.Image;
