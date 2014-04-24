@@ -2,6 +2,7 @@ package com.tonybeltramelli.lib.neural;
 
 import com.tonybeltramelli.lib.util.FlexArray;
 import com.tonybeltramelli.lib.util.RegExp;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.regex.Matcher;
 /**
  * @author Tony Beltramelli www.tonybeltramelli.com - created 13/04/2014
  */
-public abstract class NeuralNetwork implements Encodable
+public class NeuralNetwork implements Encodable
 {
     private FlexArray<InputNeuron> _inputNeurons;
     private FlexArray<OutputNeuron> _outputNeurons;
@@ -23,25 +24,25 @@ public abstract class NeuralNetwork implements Encodable
         _clear();
     }
 
-    protected void _addInputNeuron(InputNeuron inputNeuron)
+    public void addInputNeuron(InputNeuron inputNeuron)
     {
         _inputNeurons.add(inputNeuron);
         inputNeuron.setName(_inputNeurons.size());
     }
 
-    protected void _addOutputNeuron(OutputNeuron outputNeuron)
+    public void addOutputNeuron(OutputNeuron outputNeuron)
     {
         _outputNeurons.add(outputNeuron);
         outputNeuron.setName(_outputNeurons.size());
     }
 
-    protected void _addHiddenNeuron(Neuron hiddenNeuron)
+    public void addHiddenNeuron(Neuron hiddenNeuron)
     {
         _hiddenNeurons.add(hiddenNeuron);
         hiddenNeuron.setName(_hiddenNeurons.size());
     }
 
-    public int[] run(int[] inputValues)
+    public double[] run(double[] inputValues)
     {
         _reset();
 
@@ -52,11 +53,11 @@ public abstract class NeuralNetwork implements Encodable
             _inputNeurons.get(input).feed(inputValues[input]);
         }
 
-        int[] outputValues = new int[_outputNeurons.size()];
+        double[] outputValues = new double[_outputNeurons.size()];
 
         for(int output = 0; output < outputValues.length; output++)
         {
-            outputValues[output] = _outputNeurons.get(output).read() > 0.8 ? 1 : 0;
+            outputValues[output] = _outputNeurons.get(output).read();
         }
 
         return outputValues;
@@ -102,7 +103,6 @@ public abstract class NeuralNetwork implements Encodable
 
         for(int i = 0; i < neurons.size(); i++)
         {
-            System.out.println(neurons.get(i).getEncoding());
             encoding += neurons.get(i).getEncoding();
         }
 
@@ -117,20 +117,15 @@ public abstract class NeuralNetwork implements Encodable
         Matcher connectionMatcher;
         Matcher weightMatcher;
         String dnaGroup;
-        String dnaSegment;
-        int val;
+        String neuronName;
 
         while(dnaMatcher.find())
         {
             dnaGroup = dnaMatcher.group();
 
-            //start neuron
-            dnaSegment = dnaGroup.substring(0, dnaGroup.indexOf('w'));
-            val = Integer.parseInt(dnaSegment.substring(1, dnaSegment.length()));
+            neuronName = dnaGroup.substring(0, dnaGroup.indexOf('w'));
+            _createNeuron(neuronName);
 
-            _createNeuron(dnaSegment.charAt(0), val);
-
-            //connected neurons
             connectionMatcher = RegExp.parse("([w][0-9]+[ho][0-9]+)", dnaGroup.substring(dnaGroup.indexOf('w'), dnaGroup.length()));
 
             while(connectionMatcher.find())
@@ -145,34 +140,70 @@ public abstract class NeuralNetwork implements Encodable
                 while(weightMatcher.find())
                 {
                     connection[counter] = weightMatcher.group();
-                    counter ++;
+                    counter++;
                 }
 
-                System.out.println("connection "+connection[1]+" "+connection[0]);
+                _createNeuron(connection[1]);
+
+                _getNeuron(neuronName).connectTo(_getNeuron(connection[1]), _getProcessedName(connection[0]).getValue());
             }
         }
     }
 
-    private void _createNeuron(char ch, int id)
+    private Neuron _getNeuron(String name)
     {
+        Pair<Character, Integer> neuronName = _getProcessedName(name);
         Neuron neuron;
 
-        switch(ch)
+        switch(neuronName.getKey())
         {
             case INPUT:
-                System.out.println("create input neuron " + id);
-
-                //if(_inputNeurons.size() >)
-
-                //_inputNeurons.add(id - 1, ch);
-
+                neuron = _inputNeurons.get(neuronName.getValue() - 1);
                 break;
             case HIDDEN:
-                System.out.println("create hidden neuron " + id);
+                neuron = _hiddenNeurons.get(neuronName.getValue() - 1);
                 break;
             case OUTPUT:
-                System.out.println("create output neuron " + id);
+                neuron = _outputNeurons.get(neuronName.getValue() - 1);
                 break;
+            default:
+                throw new RuntimeException("The Neuron type "+neuronName.getKey()+" is not supported");
         }
+
+        return neuron;
+    }
+
+    private void _createNeuron(String name)
+    {
+        Pair<Character, Integer> neuronName = _getProcessedName(name);
+        Neuron neuron;
+
+        switch(neuronName.getKey())
+        {
+            case INPUT:
+                neuron = new InputNeuron();
+                _inputNeurons.add(neuronName.getValue() - 1, (InputNeuron) neuron, false);
+                break;
+            case HIDDEN:
+                neuron = new Neuron();
+                _hiddenNeurons.add(neuronName.getValue() - 1, neuron, false);
+                break;
+            case OUTPUT:
+                neuron = new OutputNeuron();
+                _outputNeurons.add(neuronName.getValue() - 1, (OutputNeuron) neuron, false);
+                break;
+            default:
+                throw new RuntimeException("The Neuron type "+neuronName.getKey()+" is not supported");
+        }
+
+        neuron.setName(neuronName.getValue());
+    }
+
+    private Pair<Character, Integer> _getProcessedName(String name)
+    {
+        char ch = name.charAt(0);
+        int id = Integer.parseInt(name.substring(1, name.length()));
+
+        return new Pair<Character, Integer>(ch, id);
     }
 }

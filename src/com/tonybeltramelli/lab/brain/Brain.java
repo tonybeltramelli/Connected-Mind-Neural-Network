@@ -16,32 +16,54 @@ public class Brain extends NeuralNetwork
 
         //generate("i1w1h1w1h2");
 
-        _complexNetwork();
+        //_complexNetwork();
         //_simpleNetwork();
 
+        generate("i1w1o1i2w1o2o1o2");
+
         //System.out.println(" ----> "+getEncoding());
-        generate(getEncoding());
+    }
+
+    public int[] run(int[] inputValues)
+    {
+        double[] inputs = new double[inputValues.length];
+
+        for(int i = 0; i < inputs.length; i++)
+        {
+            inputs[i] = (double) inputValues[i];
+        }
+
+        double[] result = super.run(inputs);
+
+        int[] outputs = new int[result.length];
+
+        for(int i = 0; i < outputs.length; i++)
+        {
+            outputs[i] = (int) result[i];
+        }
+
+        return outputs;
     }
 
     private void _simpleNetwork()
     {
         InputNeuron leftInput = new InputNeuron();
         InputNeuron rightInput = new InputNeuron();
-        _addInputNeuron(leftInput);
-        _addInputNeuron(rightInput);
+        addInputNeuron(leftInput);
+        addInputNeuron(rightInput);
 
         OutputNeuron leftOutput = new OutputNeuron();
         OutputNeuron rightOutput = new OutputNeuron();
-        _addOutputNeuron(leftOutput);
-        _addOutputNeuron(rightOutput);
+        addOutputNeuron(leftOutput);
+        addOutputNeuron(rightOutput);
 
         Neuron hiddenNeuron1 = new Neuron();
         Neuron hiddenNeuron2 = new Neuron();
         Neuron hiddenNeuron3 = new Neuron();
 
-        /*_addHiddenNeuron(hiddenNeuron1);
-        _addHiddenNeuron(hiddenNeuron2);
-        _addHiddenNeuron(hiddenNeuron3);
+        /*addHiddenNeuron(hiddenNeuron1);
+        addHiddenNeuron(hiddenNeuron2);
+        addHiddenNeuron(hiddenNeuron3);
 
         leftInput.connectTo(hiddenNeuron1);
         hiddenNeuron1.connectTo(hiddenNeuron3);
@@ -61,13 +83,13 @@ public class Brain extends NeuralNetwork
     {
         InputNeuron leftInput = new InputNeuron();
         InputNeuron rightInput = new InputNeuron();
-        _addInputNeuron(leftInput);
-        _addInputNeuron(rightInput);
+        addInputNeuron(leftInput);
+        addInputNeuron(rightInput);
 
         OutputNeuron leftOutput = new OutputNeuron();
         OutputNeuron rightOutput = new OutputNeuron();
-        _addOutputNeuron(leftOutput);
-        _addOutputNeuron(rightOutput);
+        addOutputNeuron(leftOutput);
+        addOutputNeuron(rightOutput);
 
         Neuron hiddenNeuron1 = new Neuron();
         Neuron hiddenNeuron2 = new Neuron();
@@ -82,18 +104,18 @@ public class Brain extends NeuralNetwork
         Neuron hiddenNeuron11 = new Neuron();
         Neuron hiddenNeuron12 = new Neuron();
 
-        _addHiddenNeuron(hiddenNeuron1);
-        _addHiddenNeuron(hiddenNeuron2);
-        _addHiddenNeuron(hiddenNeuron3);
-        _addHiddenNeuron(hiddenNeuron4);
-        _addHiddenNeuron(hiddenNeuron5);
-        _addHiddenNeuron(hiddenNeuron6);
-        _addHiddenNeuron(hiddenNeuron7);
-        _addHiddenNeuron(hiddenNeuron8);
-        _addHiddenNeuron(hiddenNeuron9);
-        _addHiddenNeuron(hiddenNeuron10);
-        _addHiddenNeuron(hiddenNeuron11);
-        _addHiddenNeuron(hiddenNeuron12);
+        addHiddenNeuron(hiddenNeuron1);
+        addHiddenNeuron(hiddenNeuron2);
+        addHiddenNeuron(hiddenNeuron3);
+        addHiddenNeuron(hiddenNeuron4);
+        addHiddenNeuron(hiddenNeuron5);
+        addHiddenNeuron(hiddenNeuron6);
+        addHiddenNeuron(hiddenNeuron7);
+        addHiddenNeuron(hiddenNeuron8);
+        addHiddenNeuron(hiddenNeuron9);
+        addHiddenNeuron(hiddenNeuron10);
+        addHiddenNeuron(hiddenNeuron11);
+        addHiddenNeuron(hiddenNeuron12);
 
         leftInput.connectTo(hiddenNeuron1);
         hiddenNeuron1.connectTo(hiddenNeuron5);

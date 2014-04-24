@@ -17,5 +17,5 @@ public class Config
     public static final int START_POSITION_Y = 550;
     //
     public static final boolean USE_NEURAL_NETWORK = true;
-    public static final boolean USE_KEYBOARD_CONTROL = true;
+    public static final boolean USE_KEYBOARD_CONTROL = false;
 }

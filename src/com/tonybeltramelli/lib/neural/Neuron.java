@@ -23,9 +23,9 @@ public class Neuron implements Encodable
         _outputs = new ArrayList<Synapse>();
     }
 
-    private Synapse _createNewOutput()
+    private Synapse _createNewOutput(int weight)
     {
-        Synapse synapse = new Synapse(this);
+        Synapse synapse = new Synapse(this, weight);
         _outputs.add(synapse);
 
         return synapse;
@@ -38,7 +38,12 @@ public class Neuron implements Encodable
 
     public void connectTo(Neuron neuronTo)
     {
-        Synapse synapse = _createNewOutput();
+        connectTo(neuronTo, Synapse.DEFAULT_WEIGHT);
+    }
+
+    public void connectTo(Neuron neuronTo, int weight)
+    {
+        Synapse synapse = _createNewOutput(weight);
         synapse.connectTo(neuronTo);
 
         neuronTo.linkInput(synapse);
@@ -51,8 +56,6 @@ public class Neuron implements Encodable
 
         if(_signalCounter == _inputs.size())
         {
-            //System.out.println("-- activate " + _id + ", valueSum : " + _valueSum + ", sig " + UMath.sigmoid(_valueSum) + ", input size : " + _inputs.size() + ", output size : " + _outputs.size());
-
             for(int i = 0; i < _outputs.size(); i++)
             {
                 _outputs.get(i).fire(_valueSum); //UMath.sigmoid(_valueSum)

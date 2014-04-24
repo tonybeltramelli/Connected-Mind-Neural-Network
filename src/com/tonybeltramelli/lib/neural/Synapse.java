@@ -5,14 +5,16 @@ package com.tonybeltramelli.lib.neural;
  */
 public class Synapse implements Encodable
 {
-    private int _weigth = 1;
+    public static final int DEFAULT_WEIGHT = 1;
+    //
+    private int _weigth;
     private double _value = 0;
     private Neuron _neuronFrom;
     private Neuron _neuronTo;
 
     public Synapse(Neuron neuronFrom)
     {
-        this(neuronFrom, 1);
+        this(neuronFrom, DEFAULT_WEIGHT);
     }
 
     public Synapse(Neuron neuronFrom, int weight)
