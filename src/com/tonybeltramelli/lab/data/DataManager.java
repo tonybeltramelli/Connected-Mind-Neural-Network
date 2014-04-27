@@ -1,6 +1,7 @@
 package com.tonybeltramelli.lab.data;
 
 import com.tonybeltramelli.lab.config.Config;
+import com.tonybeltramelli.lib.util.UDate;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -33,10 +34,8 @@ public class DataManager
 
     public void save(int fitnessScore, String dna)
     {
-        System.out.println("save " + fitnessScore + ", " + dna);
-
         _scoresPopulation.add(new Score(fitnessScore, dna));
-        _scoresPopulation = _mergeSort(_scoresPopulation);
+        _scoresGenerations.set(_scoresGenerations.size() - 1, _mergeSort(_scoresPopulation));
     }
 
     private List<Score> _mergeSort(List<Score> list)
@@ -81,7 +80,7 @@ public class DataManager
             for(int generation = 0; generation < _scoresGenerations.size(); generation++)
             {
                 content += "## Generation " + (generation + 1) + "\n";
-
+                
                 for(int individual = 0; individual < _scoresGenerations.get(generation).size(); individual++)
                 {
                     content += "    Organism " + individual + " : " + _scoresGenerations.get(generation).get(individual).getFitnessScore() + "\n";
@@ -91,7 +90,7 @@ public class DataManager
                 content += "\n";
             }
 
-            File file = new File(Config.LOG_OUTPUT);
+            File file = new File(Config.LOG_OUTPUT.replace(Config.DATE_MARKER, UDate.getDateNowAsString(UDate.FILE_NAME_DATE_FORMAT)));
 
             if(!file.exists()) file.createNewFile();
 

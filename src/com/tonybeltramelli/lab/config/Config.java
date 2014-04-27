@@ -9,7 +9,8 @@ public class Config
     public static final String LEFT_SENSOR = "Left sensor :";
     public static final String RIGHT_SENSOR = "Right sensor :";
     public static final String MAZE_IMAGE = "file:assets/road.png";
-    public static final String LOG_OUTPUT = "log/log.md";
+    public static final String DATE_MARKER = "{DATE}";
+    public static final String LOG_OUTPUT = "log/log-"+DATE_MARKER+".md";
     //
     public static final int SCREEN_WIDTH = 900;
     public static final int SCREEN_HEIGHT = 650;

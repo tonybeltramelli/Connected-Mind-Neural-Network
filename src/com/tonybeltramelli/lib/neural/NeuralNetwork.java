@@ -193,8 +193,20 @@ public class NeuralNetwork implements Encodable
 
                 if(induceMutation)
                 {
-                    weight += UMath.random(-1, 1);
-                    weight = weight < 0 ? 0.0 : weight;
+                    weight += UMath.random(-2, 1);
+
+                    /*if(Math.random() < 0.9)
+                    {
+                        weight += UMath.random(-2, 1);
+                    }else{
+                        if(Math.random() < 0.5)
+                        {
+                            weight = 0.0;
+                        }else{
+                            weight = 1.0;
+                        }
+                    }*/
+                    weight = weight < 0.0 ? 0.0 : weight > 10.0 ? 10.0 : weight;
                 }
 
                 _getNeuron(neuronName).connectTo(_getNeuron(connection[1]), weight);
