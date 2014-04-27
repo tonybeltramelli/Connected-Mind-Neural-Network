@@ -1,6 +1,5 @@
 package com.tonybeltramelli.lab;
 
-import com.tonybeltramelli.lab.display.Display;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -17,6 +16,6 @@ public class Main extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        new Display(stage);
+        new Controller(stage);
     }
 }

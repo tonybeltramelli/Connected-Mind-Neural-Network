@@ -8,7 +8,7 @@ public class Config
     public static final String WINDOW_TITLE = "Connected Mind";
     public static final String LEFT_SENSOR = "Left sensor :";
     public static final String RIGHT_SENSOR = "Right sensor :";
-    public static final String MAZE_IMAGE = "file:assets/road2.png";
+    public static final String MAZE_IMAGE = "file:assets/road.png";
     //
     public static final int SCREEN_WIDTH = 900;
     public static final int SCREEN_HEIGHT = 650;
@@ -18,4 +18,6 @@ public class Config
     //
     public static final boolean USE_NEURAL_NETWORK = true;
     public static final boolean USE_KEYBOARD_CONTROL = false;
+    //
+    public static final int POPULATION_SIZE = 5;
 }

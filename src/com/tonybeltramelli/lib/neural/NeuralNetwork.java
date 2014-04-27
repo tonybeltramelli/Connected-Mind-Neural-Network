@@ -2,6 +2,7 @@ package com.tonybeltramelli.lib.neural;
 
 import com.tonybeltramelli.lib.util.FlexArray;
 import com.tonybeltramelli.lib.util.RegExp;
+import com.tonybeltramelli.lib.util.UMath;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -109,7 +110,12 @@ public class NeuralNetwork implements Encodable
         return encoding;
     }
 
-    public void generate(String encoding)
+    public void mutate()
+    {
+        generate(getEncoding(), true);
+    }
+
+    public void generate(String encoding, boolean induceMutation)
     {
         _clear();
 
@@ -118,6 +124,7 @@ public class NeuralNetwork implements Encodable
         Matcher weightMatcher;
         String dnaGroup;
         String neuronName;
+        double weight;
 
         while(dnaMatcher.find())
         {
@@ -145,7 +152,15 @@ public class NeuralNetwork implements Encodable
 
                 _createNeuron(connection[1]);
 
-                _getNeuron(neuronName).connectTo(_getNeuron(connection[1]), _getProcessedName(connection[0]).getValue());
+                weight = Double.parseDouble(connection[0].substring(1, connection[0].length()));
+
+                if(induceMutation)
+                {
+                    weight += UMath.random(-1, 1);
+                    weight = weight < 0 ? 0.0 : weight;
+                }
+
+                _getNeuron(neuronName).connectTo(_getNeuron(connection[1]), weight);
             }
         }
     }
@@ -167,7 +182,7 @@ public class NeuralNetwork implements Encodable
                 neuron = _outputNeurons.get(neuronName.getValue() - 1);
                 break;
             default:
-                throw new RuntimeException("The Neuron type "+neuronName.getKey()+" is not supported");
+                throw new RuntimeException("The Neuron type " + neuronName.getKey() + " is not supported");
         }
 
         return neuron;
@@ -193,7 +208,7 @@ public class NeuralNetwork implements Encodable
                 _outputNeurons.add(neuronName.getValue() - 1, (OutputNeuron) neuron, false);
                 break;
             default:
-                throw new RuntimeException("The Neuron type "+neuronName.getKey()+" is not supported");
+                throw new RuntimeException("The Neuron type " + neuronName.getKey() + " is not supported");
         }
 
         neuron.setName(neuronName.getValue());

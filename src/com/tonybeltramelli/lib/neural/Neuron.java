@@ -1,5 +1,7 @@
 package com.tonybeltramelli.lib.neural;
 
+import com.tonybeltramelli.lib.util.UMath;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class Neuron implements Encodable
     protected List<Synapse> _outputs;
     //
     private int _signalCounter = 0;
-    private double _valueSum = 0;
+    private float _valueSum = 0;
 
     public Neuron()
     {
@@ -23,7 +25,7 @@ public class Neuron implements Encodable
         _outputs = new ArrayList<Synapse>();
     }
 
-    private Synapse _createNewOutput(int weight)
+    private Synapse _createNewOutput(double weight)
     {
         Synapse synapse = new Synapse(this, weight);
         _outputs.add(synapse);
@@ -41,7 +43,7 @@ public class Neuron implements Encodable
         connectTo(neuronTo, Synapse.DEFAULT_WEIGHT);
     }
 
-    public void connectTo(Neuron neuronTo, int weight)
+    public void connectTo(Neuron neuronTo, double weight)
     {
         Synapse synapse = _createNewOutput(weight);
         synapse.connectTo(neuronTo);
@@ -58,7 +60,7 @@ public class Neuron implements Encodable
         {
             for(int i = 0; i < _outputs.size(); i++)
             {
-                _outputs.get(i).fire(_valueSum); //UMath.sigmoid(_valueSum)
+                _outputs.get(i).fire(UMath.sigmoid(_valueSum));
             }
         }
     }

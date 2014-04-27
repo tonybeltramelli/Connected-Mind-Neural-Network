@@ -7,7 +7,7 @@ public class Synapse implements Encodable
 {
     public static final int DEFAULT_WEIGHT = 1;
     //
-    private int _weigth;
+    private double _weight;
     private double _value = 0;
     private Neuron _neuronFrom;
     private Neuron _neuronTo;
@@ -17,12 +17,12 @@ public class Synapse implements Encodable
         this(neuronFrom, DEFAULT_WEIGHT);
     }
 
-    public Synapse(Neuron neuronFrom, int weight)
+    public Synapse(Neuron neuronFrom, double weight)
     {
         super();
 
         _neuronFrom = neuronFrom;
-        _weigth = weight;
+        _weight = weight;
     }
 
     public void connectTo(Neuron neuronTo)
@@ -34,7 +34,7 @@ public class Synapse implements Encodable
     {
         if(_neuronTo == null) return;
 
-        _value = value * _weigth;
+        _value = value * _weight;
 
         _neuronTo.activate(_value);
     }
@@ -47,6 +47,6 @@ public class Synapse implements Encodable
     @Override
     public String getEncoding()
     {
-        return WEIGHT + "" + _weigth + _neuronTo.getName();
+        return WEIGHT + "" + _weight + _neuronTo.getName();
     }
 }

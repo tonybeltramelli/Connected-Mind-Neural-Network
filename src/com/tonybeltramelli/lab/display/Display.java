@@ -1,5 +1,6 @@
 package com.tonybeltramelli.lab.display;
 
+import com.tonybeltramelli.lab.Controller;
 import com.tonybeltramelli.lab.brain.Brain;
 import com.tonybeltramelli.lab.config.Config;
 import com.tonybeltramelli.lib.graphics.ImageSprite;
@@ -19,9 +20,9 @@ public class Display extends ViewPort implements Environment
     private Organism _organism;
     private ImageSprite _leftView;
     private ImageSprite _rightView;
-    private Brain _brain;
+    private Controller _controller;
 
-    public Display(Stage stage)
+    public Display(Controller controller, Stage stage)
     {
         super(stage, Config.WINDOW_TITLE, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT + 20);
 
@@ -33,12 +34,20 @@ public class Display extends ViewPort implements Environment
         _leftView = new ImageSprite();
         _rightView = new ImageSprite();
 
-        _brain = new Brain();
-
         _displaySensorView(_leftView, Config.LEFT_SENSOR, 10, Config.SCREEN_HEIGHT + 6);
         _displaySensorView(_rightView, Config.RIGHT_SENSOR, 100, Config.SCREEN_HEIGHT + 6);
 
-        organismHasCollided();
+        _controller = controller;
+    }
+
+    public void build(Brain brain)
+    {
+        _organism = null;
+        _organism = new Organism(this, brain);
+        _organism.setPosition(Config.START_POSITION_X, Config.START_POSITION_Y);
+
+        _spriteContainer.addChild(_organism);
+        _engine.add(_organism);
     }
 
     private void _displaySensorView(ImageSprite view, String text, double x, double y)
@@ -71,20 +80,9 @@ public class Display extends ViewPort implements Environment
     @Override
     public void organismHasCollided()
     {
-        if(_organism != null)
-        {
-            _organism.getScore();
+        _engine.remove(_organism);
+        _spriteContainer.removeChild(_organism);
 
-            _engine.remove(_organism);
-            _spriteContainer.removeChild(_organism);
-
-            _organism = null;
-        }
-
-        _organism = new Organism(this, _brain);
-        _organism.setPosition(Config.START_POSITION_X, Config.START_POSITION_Y);
-
-        _spriteContainer.addChild(_organism);
-        _engine.add(_organism);
+        _controller.saveFitnessScore(_organism.getFitnessScore());
     }
 }

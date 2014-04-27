@@ -116,8 +116,8 @@ public class Organism extends Sprite implements Updatable
 
         if(Config.USE_NEURAL_NETWORK)
         {
-            int[] outputs = _brain.run(new int[]{inputLeft, inputRight});
-            _move(outputs[0], outputs[1]);
+            double[] outputs = _brain.run(new double[]{(double) inputLeft, (double) inputRight});
+            _move((int) outputs[0], (int) outputs[1]);
         } else
         {
             _move(inputLeft, inputRight);
@@ -267,7 +267,7 @@ public class Organism extends Sprite implements Updatable
         return 1;
     }
 
-    public int getScore()
+    public int getFitnessScore()
     {
         double xDec = _x - Config.START_POSITION_X;
         double yDec = _y - Config.START_POSITION_Y;

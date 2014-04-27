@@ -24,6 +24,9 @@ public class ImageSprite extends Sprite
     {
         super();
 
+        _imageView = new ImageView();
+        addGraphics(_imageView);
+
         replaceContent(image);
 
         setPosition(x, y);
@@ -33,11 +36,6 @@ public class ImageSprite extends Sprite
     {
         if(image == null) return;
 
-        clear();
-
-        _imageView = null;
-        _imageView = new ImageView();
         _imageView.setImage(image);
-        addGraphics(_imageView);
     }
 }

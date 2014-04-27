@@ -27,6 +27,11 @@ public class UMath
         return n;
     }
 
+    public static double random(double from, double to)
+    {
+        return from + (Math.random() * ((to - from) + 1));
+    }
+
     public static double accurateRound(double n, int i)
     {
         return Math.round(n * Math.pow(10, i)) / Math.pow(10, i);
@@ -37,7 +42,9 @@ public class UMath
         int i = values.length;
         int n = values.length;
         double total = 0;
+
         while(--i != -1) total += values[i];
+
         return total / n;
     }
 

@@ -1,7 +1,7 @@
 package com.tonybeltramelli.lab.brain;
 
-import com.tonybeltramelli.lib.neural.NeuralNetwork;
 import com.tonybeltramelli.lib.neural.InputNeuron;
+import com.tonybeltramelli.lib.neural.NeuralNetwork;
 import com.tonybeltramelli.lib.neural.Neuron;
 import com.tonybeltramelli.lib.neural.OutputNeuron;
 
@@ -15,29 +15,21 @@ public class Brain extends NeuralNetwork
         super();
 
         //_complexNetwork();
-        //_simpleNetwork();
+        _simpleNetwork();
 
-        generate("i1w1o1i2w1o2o1o2");
+        //generate("i1w1o1i2w1o2o1o2", false);
 
         //System.out.println(" ----> "+getEncoding());
     }
 
-    public int[] run(int[] inputValues)
+    @Override
+    public double[] run(double[] inputValues)
     {
-        double[] inputs = new double[inputValues.length];
+        double[] outputs = super.run(inputValues);
 
-        for(int i = 0; i < inputs.length; i++)
+        for(int output = 0; output < outputs.length; output++)
         {
-            inputs[i] = (double) inputValues[i];
-        }
-
-        double[] result = super.run(inputs);
-
-        int[] outputs = new int[result.length];
-
-        for(int i = 0; i < outputs.length; i++)
-        {
-            outputs[i] = (int) result[i];
+            outputs[output] = outputs[output] >= 1.0 ? 1.0 : 0.0;
         }
 
         return outputs;
@@ -58,23 +50,32 @@ public class Brain extends NeuralNetwork
         Neuron hiddenNeuron1 = new Neuron();
         Neuron hiddenNeuron2 = new Neuron();
         Neuron hiddenNeuron3 = new Neuron();
+        Neuron hiddenNeuron4 = new Neuron();
 
-        /*addHiddenNeuron(hiddenNeuron1);
+        addHiddenNeuron(hiddenNeuron1);
         addHiddenNeuron(hiddenNeuron2);
         addHiddenNeuron(hiddenNeuron3);
+        addHiddenNeuron(hiddenNeuron4);
 
         leftInput.connectTo(hiddenNeuron1);
-        hiddenNeuron1.connectTo(hiddenNeuron3);
-        hiddenNeuron3.connectTo(leftOutput);
-        //hiddenNeuron1.connectTo(leftOutput);
+        leftInput.connectTo(hiddenNeuron2);
+        leftInput.connectTo(hiddenNeuron3);
+        leftInput.connectTo(hiddenNeuron4);
 
+        rightInput.connectTo(hiddenNeuron1);
         rightInput.connectTo(hiddenNeuron2);
-        hiddenNeuron2.connectTo(hiddenNeuron3);
-        hiddenNeuron3.connectTo(rightOutput);
-        //hiddenNeuron2.connectTo(rightOutput);*/
+        rightInput.connectTo(hiddenNeuron3);
+        rightInput.connectTo(hiddenNeuron4);
 
-        leftInput.connectTo(leftOutput);
-        rightInput.connectTo(rightOutput);
+        hiddenNeuron1.connectTo(leftOutput);
+        hiddenNeuron2.connectTo(leftOutput);
+        hiddenNeuron3.connectTo(leftOutput);
+        hiddenNeuron4.connectTo(leftOutput);
+
+        hiddenNeuron1.connectTo(rightOutput);
+        hiddenNeuron2.connectTo(rightOutput);
+        hiddenNeuron3.connectTo(rightOutput);
+        hiddenNeuron4.connectTo(rightOutput);
     }
 
     private void _complexNetwork()
