@@ -8,21 +8,29 @@ import java.util.List;
  */
 public class DataManager
 {
-    private List<Score> _scores;
+    private List<Score> _scoresPopulation;
+    private List<List<Score>> _scoresGenerations;
 
     public DataManager()
     {
         super();
 
-        _scores = new ArrayList<Score>();
+        _scoresGenerations = new ArrayList<List<Score>>();
+        nextGeneration();
+    }
+
+    public void nextGeneration()
+    {
+        _scoresGenerations.add(new ArrayList<Score>());
+        _scoresPopulation = _scoresGenerations.get(_scoresGenerations.size() - 1);
     }
 
     public void save(int fitnessScore, String dna)
     {
         System.out.println("save " + fitnessScore + ", " + dna);
 
-        _scores.add(new Score(fitnessScore, dna));
-        _scores = _mergeSort(_scores);
+        _scoresPopulation.add(new Score(fitnessScore, dna));
+        _scoresPopulation = _mergeSort(_scoresPopulation);
     }
 
     private List<Score> _mergeSort(List<Score> list)
@@ -58,8 +66,18 @@ public class DataManager
         return sorted;
     }
 
-    public Score getBestDna()
+    public String getBestDna()
     {
-        return _scores.get(_scores.size() - 1);
+        return _scoresPopulation.get(_scoresPopulation.size() - 1).getDna();
+    }
+
+    public String getSecondBestDna()
+    {
+        return _scoresPopulation.get(_scoresPopulation.size() - 2).getDna();
+    }
+
+    public int getGenerationNumber()
+    {
+        return _scoresGenerations.size();
     }
 }

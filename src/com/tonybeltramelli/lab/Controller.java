@@ -47,6 +47,14 @@ public class Controller
             _createIndividual();
         }else{
             _individualCounter = 0;
+
+            if(_dataManager.getGenerationNumber() < Config.GENERATION_NUMBER)
+            {
+                _brain.merge(_dataManager.getBestDna(), _dataManager.getSecondBestDna());
+                _dataManager.nextGeneration();
+
+                _createIndividual();
+            }
         }
     }
 }

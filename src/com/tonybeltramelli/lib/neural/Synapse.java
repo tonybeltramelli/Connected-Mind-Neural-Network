@@ -5,7 +5,7 @@ package com.tonybeltramelli.lib.neural;
  */
 public class Synapse implements Encodable
 {
-    public static final int DEFAULT_WEIGHT = 1;
+    public static final double DEFAULT_WEIGHT = 1.0;
     //
     private double _weight;
     private double _value = 0;

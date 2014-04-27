@@ -96,6 +96,48 @@ public class NeuralNetwork implements Encodable
         return neurons;
     }
 
+    public void mutate()
+    {
+        generate(getEncoding(), true);
+    }
+
+    public void merge(String dna1, String dna2)
+    {
+        List<int[]> positionWeight1 = new ArrayList<int[]>();
+        List<int[]> positionWeight2 = new ArrayList<int[]>();
+        String dna = "";
+        int lastPosition = 0;
+
+        Matcher matcher = RegExp.parse(WEIGHT_REG_EXP, dna1);
+        while(matcher.find())
+        {
+            positionWeight1.add(new int[]{matcher.start(), matcher.end()});
+        }
+
+        matcher = RegExp.parse(WEIGHT_REG_EXP, dna2);
+        while(matcher.find())
+        {
+            positionWeight2.add(new int[]{matcher.start(), matcher.end()});
+        }
+
+        for(int position = 0; position < positionWeight1.size(); position ++)
+        {
+            dna += dna1.substring(lastPosition, positionWeight1.get(position)[0]);
+            lastPosition = positionWeight1.get(position)[1];
+
+            if(Math.random() < 0.5)
+            {
+                dna += dna1.substring(positionWeight1.get(position)[0], positionWeight1.get(position)[1]);
+            }else{
+                dna += dna2.substring(positionWeight2.get(position)[0], positionWeight2.get(position)[1]);
+            }
+        }
+
+        dna += dna1.substring(lastPosition, dna1.length());
+
+        generate(dna, false);
+    }
+
     @Override
     public String getEncoding()
     {
@@ -108,11 +150,6 @@ public class NeuralNetwork implements Encodable
         }
 
         return encoding;
-    }
-
-    public void mutate()
-    {
-        generate(getEncoding(), true);
     }
 
     public void generate(String encoding, boolean induceMutation)
@@ -139,7 +176,7 @@ public class NeuralNetwork implements Encodable
             {
                 dnaGroup = connectionMatcher.group();
 
-                weightMatcher = RegExp.parse(WEIGHT_REG_EXP, dnaGroup);
+                weightMatcher = RegExp.parse(NEURON_REG_EXP, dnaGroup);
 
                 String[] connection = new String[2];
                 int counter = 0;

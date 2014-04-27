@@ -12,7 +12,8 @@ public interface Encodable
     //
     public static final String DNA_REG_EXP = "(["+INPUT+""+HIDDEN+""+OUTPUT+"][0-9]+(["+WEIGHT+"]([0-9]+(\\.[0-9]+)?)["+HIDDEN+""+OUTPUT+"][0-9]+))(["+WEIGHT+"]([0-9]+(\\.[0-9]+)?)["+HIDDEN+""+OUTPUT+"][0-9]+)*";
     public static final String CONNECTION_REG_EXP = "(["+WEIGHT+"]([0-9]+(\\.[0-9]+)?)["+HIDDEN+""+OUTPUT+"][0-9]+)";
-    public static final String WEIGHT_REG_EXP = "(["+WEIGHT+""+HIDDEN+""+OUTPUT+"]([0-9]+(\\.[0-9]+)?))";
+    public static final String NEURON_REG_EXP = "(["+WEIGHT+""+HIDDEN+""+OUTPUT+"]([0-9]+(\\.[0-9]+)?))";
+    public static final String WEIGHT_REG_EXP = "(["+WEIGHT+"]([0-9]+(\\.[0-9]+)?))";
     //
     public String getEncoding();
 }
