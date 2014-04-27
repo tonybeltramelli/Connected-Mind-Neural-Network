@@ -1,5 +1,11 @@
 package com.tonybeltramelli.lab.data;
 
+import com.tonybeltramelli.lab.config.Config;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +70,39 @@ public class DataManager
         }
 
         return sorted;
+    }
+
+    public void print()
+    {
+        try
+        {
+            String content = "";
+
+            for(int generation = 0; generation < _scoresGenerations.size(); generation++)
+            {
+                content += "## Generation " + (generation + 1) + "\n";
+
+                for(int individual = 0; individual < _scoresGenerations.get(generation).size(); individual++)
+                {
+                    content += "    Organism " + individual + " : " + _scoresGenerations.get(generation).get(individual).getFitnessScore() + "\n";
+                    content += "    DNA : " + _scoresGenerations.get(generation).get(individual).getDna() + "\n\n";
+                }
+
+                content += "\n";
+            }
+
+            File file = new File(Config.LOG_OUTPUT);
+
+            if(!file.exists()) file.createNewFile();
+
+            FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(content);
+            bufferedWriter.close();
+        } catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public String getBestDna()

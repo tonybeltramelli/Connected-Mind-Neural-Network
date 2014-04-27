@@ -54,6 +54,10 @@ public class Controller
                 _dataManager.nextGeneration();
 
                 _createIndividual();
+            }else{
+                _dataManager.print();
+
+                System.exit(0);
             }
         }
     }
