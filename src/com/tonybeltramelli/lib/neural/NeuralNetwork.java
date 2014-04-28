@@ -120,7 +120,7 @@ public class NeuralNetwork implements Encodable
             positionWeight2.add(new int[]{matcher.start(), matcher.end()});
         }
 
-        for(int position = 0; position < positionWeight1.size(); position ++)
+        for(int position = 0; position < positionWeight1.size(); position++)
         {
             dna += dna1.substring(lastPosition, positionWeight1.get(position)[0]);
             lastPosition = positionWeight1.get(position)[1];
@@ -128,7 +128,8 @@ public class NeuralNetwork implements Encodable
             if(Math.random() < 0.5)
             {
                 dna += dna1.substring(positionWeight1.get(position)[0], positionWeight1.get(position)[1]);
-            }else{
+            } else
+            {
                 dna += dna2.substring(positionWeight2.get(position)[0], positionWeight2.get(position)[1]);
             }
         }
@@ -193,19 +194,21 @@ public class NeuralNetwork implements Encodable
 
                 if(induceMutation)
                 {
-                    weight += UMath.random(-2, 1);
+                    double rand = Math.random();
 
-                    /*if(Math.random() < 0.9)
+                    if(rand < 0.5)
                     {
                         weight += UMath.random(-2, 1);
-                    }else{
+                    } else if(rand > 0.9)
+                    {
                         if(Math.random() < 0.5)
                         {
                             weight = 0.0;
-                        }else{
+                        } else
+                        {
                             weight = 1.0;
                         }
-                    }*/
+                    }
                     weight = weight < 0.0 ? 0.0 : weight > 10.0 ? 10.0 : weight;
                 }
 

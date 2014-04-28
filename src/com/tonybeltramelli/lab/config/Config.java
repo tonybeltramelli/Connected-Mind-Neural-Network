@@ -15,12 +15,12 @@ public class Config
     public static final int SCREEN_WIDTH = 900;
     public static final int SCREEN_HEIGHT = 650;
     //
-    public static final int START_POSITION_X = 100;
-    public static final int START_POSITION_Y = 550;
+    public static final int START_POSITION_X = 200;
+    public static final int START_POSITION_Y = 500;
     //
     public static final boolean USE_NEURAL_NETWORK = true;
     public static final boolean USE_KEYBOARD_CONTROL = false;
     //
     public static final int POPULATION_SIZE = 10;
-    public static final int GENERATION_NUMBER = 100;
+    public static final int GENERATION_NUMBER = 20;
 }

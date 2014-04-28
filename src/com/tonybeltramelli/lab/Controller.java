@@ -35,6 +35,8 @@ public class Controller
         _individualCounter++;
 
         _display.build(_brain);
+
+        System.out.println("ind : "+_individualCounter+" / "+Config.POPULATION_SIZE+", gen : "+_dataManager.getGenerationNumber()+" / "+Config.GENERATION_NUMBER);
     }
 
     public void saveFitnessScore(int fitnessScore)

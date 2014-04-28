@@ -19,7 +19,7 @@ public class Brain extends NeuralNetwork
 
         //generate("i1w1o1i2w1o2o1o2", false);
 
-        //System.out.println(" ----> "+getEncoding());
+        //System.out.println(getEncoding());
     }
 
     @Override
