@@ -73,7 +73,7 @@ System.out.println(neuralNetwork.getEncoding());
 // output: i1w1.0h1i2w1.0h2h1w1.0h3h2w1.0h3h3w1.0o1w1.0o2o1o2
 
 // Automatic creation
-neuralNetwork.generate("i1w1.0h1i2w1.0h2h1w1.0h3h2w1.0h3h3w1.0o1w1.0o2o1o2");
+neuralNetwork.generate("i1w1h1i2w1h2h1w1h3h2w1h3h3w1o1w1o2o1o2");
 
 System.out.println(neuralNetwork.getEncoding());
 // output: i1w1.0h1i2w1.0h2h1w1.0h3h2w1.0h3h3w1.0o1w1.0o2o1o2
