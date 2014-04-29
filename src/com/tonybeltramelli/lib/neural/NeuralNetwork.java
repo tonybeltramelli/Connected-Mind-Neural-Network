@@ -136,7 +136,7 @@ public class NeuralNetwork implements Encodable
 
         dna += dna1.substring(lastPosition, dna1.length());
 
-        generate(dna, false);
+        generate(dna);
     }
 
     @Override
@@ -151,6 +151,11 @@ public class NeuralNetwork implements Encodable
         }
 
         return encoding;
+    }
+
+    public void generate(String encoding)
+    {
+        generate(encoding, false);
     }
 
     public void generate(String encoding, boolean induceMutation)

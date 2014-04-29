@@ -70,17 +70,36 @@ hiddenNeuron2.connectTo(hiddenNeuron3);
 hiddenNeuron3.connectTo(rightOutput);
 
 System.out.println(neuralNetwork.getEncoding());
-// output: i1w1h1i2w1h2h1w1h3h2w1h3h3w1o1w1o2o1o2
+// output: i1w1.0h1i2w1.0h2h1w1.0h3h2w1.0h3h3w1.0o1w1.0o2o1o2
 
 // Automatic creation
-neuralNetwork.generate("i1w1h1i2w1h2h1w1h3h2w1h3h3w1o1w1o2o1o2");
+neuralNetwork.generate("i1w1.0h1i2w1.0h2h1w1.0h3h2w1.0h3h3w1.0o1w1.0o2o1o2");
 
 System.out.println(neuralNetwork.getEncoding());
-// output: i1w1h1i2w1h2h1w1h3h2w1h3h3w1o1w1o2o1o2
+// output: i1w1.0h1i2w1.0h2h1w1.0h3h2w1.0h3h3w1.0o1w1.0o2o1o2
+
+//Induce mutations
+neuralNetwork.generate("i1w1.0h1i2w1.0h2h1w1.0h3h2w1.0h3h3w1.0o1w1.0o2o1o2", true);
+
+System.out.println(neuralNetwork.getEncoding());
+// output: i1w1.0h1i2w1.77621132977439h2h1w1.115626470054826h3h2w1.0h3h3w1.0o1w1.0o2o1o2
 
 // Running
 double input1 = 1.0;
 double input2 = 0.56;
 double[] outputs = neuralNetwork.run(new double[]{input1, input2});
+
+// Network with DNA merging
+NeuralNetwork neuralNetworkA = new NeuralNetwork();
+neuralNetworkA.generate("i1w1.0h1i2w1.0h2h1w1.0h3h2w1.0h3h3w1.0o1w1.0o2o1o2");
+
+NeuralNetwork neuralNetworkB = new NeuralNetwork();
+neuralNetworkB.generate("i1w1.0h1i2w1.77621132977439h2h1w1.115626470054826h3h2w1.0h3h3w1.0o1w1.0o2o1o2");
+
+// Merging
+neuralNetwork.merge(neuralNetworkA.getEncoding(), neuralNetworkB.getEncoding());
+
+System.out.println(neuralNetwork.getEncoding());
+// output: i1w1.0h1i2w1.0h2h1w1.115626470054826h3h2w1.0h3h3w1.0o1w1.0o2o1o2
 
 ```
