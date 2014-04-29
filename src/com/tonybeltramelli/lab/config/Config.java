@@ -20,22 +20,23 @@ public class Config
     //
     public static final boolean USE_NEURAL_NETWORK = true;
     public static final boolean USE_KEYBOARD_CONTROL = false;
+    public static final boolean USE_BIAS = false;
     //
-    public static final int POPULATION_SIZE = 10;
+    public static final int POPULATION_SIZE = 20;
     public static final int GENERATION_NUMBER = 10;
     //
-    public static final ReproductionStrategy REPRODUCTION_STRATEGY = ReproductionStrategy.SEXUAL;
-    public static final InitializationStrategy INITIALIZATION_STRATEGY = InitializationStrategy.RANDOMIZED;
-
-    public static enum ReproductionStrategy
-    {
-        SEXUAL,
-        ASEXUAL
-    }
+    public static final InitializationStrategy INITIALIZATION_STRATEGY = InitializationStrategy.SEEDED;
+    public static final ReproductionStrategy REPRODUCTION_STRATEGY = ReproductionStrategy.ASEXUAL;
 
     public static enum InitializationStrategy
     {
         SEEDED,
         RANDOMIZED
+    }
+
+    public static enum ReproductionStrategy
+    {
+        SEXUAL,
+        ASEXUAL
     }
 }

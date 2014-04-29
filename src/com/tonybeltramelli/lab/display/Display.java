@@ -21,6 +21,7 @@ public class Display extends ViewPort implements Environment
     private ImageSprite _leftView;
     private ImageSprite _rightView;
     private Controller _controller;
+    private Text _progress;
 
     public Display(Controller controller, Stage stage)
     {
@@ -34,10 +35,16 @@ public class Display extends ViewPort implements Environment
         _leftView = new ImageSprite();
         _rightView = new ImageSprite();
 
-        _displaySensorView(_leftView, Config.LEFT_SENSOR, 10, Config.SCREEN_HEIGHT + 6);
-        _displaySensorView(_rightView, Config.RIGHT_SENSOR, 100, Config.SCREEN_HEIGHT + 6);
+        _displaySensorView(_leftView, Config.LEFT_SENSOR, 10, Config.SCREEN_HEIGHT + 12);
+        _displaySensorView(_rightView, Config.RIGHT_SENSOR, 100, Config.SCREEN_HEIGHT + 12);
 
         _controller = controller;
+
+        _progress = new Text();
+        _setTextStyle(_progress);
+        _progress.setTranslateX(Config.SCREEN_WIDTH / 2);
+        _progress.setTranslateY(Config.SCREEN_HEIGHT + 12);
+        _spriteContainer.addGraphics(_progress);
     }
 
     public void build(Brain brain)
@@ -53,14 +60,13 @@ public class Display extends ViewPort implements Environment
     private void _displaySensorView(ImageSprite view, String text, double x, double y)
     {
         Text label = new Text();
-        label.setFont(new Font(10));
+        _setTextStyle(label);
         label.setText(text);
-        label.setFill(Color.WHITE);
         label.setTranslateX(x);
-        label.setTranslateY(y + 6);
+        label.setTranslateY(y);
         _spriteContainer.addGraphics(label);
 
-        view.setPosition(x + label.getLayoutBounds().getWidth() + 10, y);
+        view.setPosition(x + label.getLayoutBounds().getWidth() + 10, y - 6);
         _spriteContainer.addChild(view);
     }
 
@@ -84,5 +90,16 @@ public class Display extends ViewPort implements Environment
         _spriteContainer.removeChild(_organism);
 
         _controller.saveFitnessScore(_organism.getFitnessScore());
+    }
+
+    private void _setTextStyle(Text text)
+    {
+        text.setFont(new Font(10));
+        text.setFill(Color.BLACK);
+    }
+
+    public void setProgress(String progress)
+    {
+        _progress.setText(progress);
     }
 }

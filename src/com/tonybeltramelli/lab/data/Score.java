@@ -29,6 +29,6 @@ public class Score
     @Override
     public String toString()
     {
-        return "(Score : " + _fitnessScore + ", " + _dna + ")";
+        return "(Score : " + _fitnessScore + ")";
     }
 }

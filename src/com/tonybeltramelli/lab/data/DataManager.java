@@ -35,7 +35,6 @@ public class DataManager
     public void save(int fitnessScore, String dna)
     {
         _scoresPopulation.add(new Score(fitnessScore, dna));
-        _scoresGenerations.set(_scoresGenerations.size() - 1, _mergeSort(_scoresPopulation));
     }
 
     private List<Score> _mergeSort(List<Score> list)
@@ -75,15 +74,18 @@ public class DataManager
     {
         try
         {
-            String content = UDate.getDateNowAsString(UDate.DATE_FORMAT) + "\n";
+            String content = "## " + UDate.getDateNowAsString(UDate.DATE_FORMAT) + "\n";
 
-            content += Config.INITIALIZATION_STRATEGY == Config.InitializationStrategy.SEEDED ? "seeded initialization, " : "randomized initialization, ";
-            content += Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.SEXUAL ? "sexual reproduction\n" : "asexual reproduction\n";
+            content += "* Environment : "+Config.MAZE_IMAGE.substring(Config.MAZE_IMAGE.indexOf("/") + 1, Config.MAZE_IMAGE.length()) + "\n";
+            content += "* Start position : " + Config.START_POSITION_X + ", " + Config.START_POSITION_Y + "\n";
+            content += "* Initialization : " + (Config.INITIALIZATION_STRATEGY == Config.InitializationStrategy.SEEDED ? "seeded" : "randomized") + "\n";
+            content += "* Reproduction : " + (Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.SEXUAL ? "sexual" : "asexual") + "\n";
+            content += "* Use bias node : " + Config.USE_BIAS + "\n\n\n";
 
             for(int generation = 0; generation < _scoresGenerations.size(); generation++)
             {
                 content += "## Generation " + (generation + 1) + "\n";
-                
+
                 for(int individual = 0; individual < _scoresGenerations.get(generation).size(); individual++)
                 {
                     content += "    Organism " + individual + " : " + _scoresGenerations.get(generation).get(individual).getFitnessScore() + "\n";
@@ -109,11 +111,15 @@ public class DataManager
 
     public String getBestDna()
     {
+        _scoresPopulation = _mergeSort(_scoresPopulation);
+
         return _scoresPopulation.get(_scoresPopulation.size() - 1).getDna();
     }
 
     public String getSecondBestDna()
     {
+        _scoresPopulation = _mergeSort(_scoresPopulation);
+
         return _scoresPopulation.get(_scoresPopulation.size() - 2).getDna();
     }
 

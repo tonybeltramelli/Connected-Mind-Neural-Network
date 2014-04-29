@@ -116,7 +116,15 @@ public class Organism extends Sprite implements Updatable
 
         if(Config.USE_NEURAL_NETWORK)
         {
-            double[] outputs = _brain.run(new double[]{(double) inputLeft, (double) inputRight});
+            double[] outputs;
+
+            if(!Config.USE_BIAS)
+            {
+                outputs = _brain.run(new double[]{(double) inputLeft, (double) inputRight});
+            }else{
+                outputs = _brain.run(new double[]{(double) inputLeft, 1.0, (double) inputRight});
+            }
+
             _move((int) outputs[0], (int) outputs[1]);
         } else
         {

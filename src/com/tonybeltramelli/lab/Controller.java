@@ -35,8 +35,7 @@ public class Controller
         _individualCounter++;
 
         _display.build(_brain);
-
-        System.out.println("ind : " + _individualCounter + " / " + Config.POPULATION_SIZE + ", gen : " + _dataManager.getGenerationNumber() + " / " + Config.GENERATION_NUMBER);
+        _display.setProgress("organism : " + _individualCounter + " / " + Config.POPULATION_SIZE + ", generation : " + _dataManager.getGenerationNumber() + " / " + Config.GENERATION_NUMBER);
     }
 
     public void saveFitnessScore(int fitnessScore)
@@ -45,14 +44,7 @@ public class Controller
 
         if(_individualCounter < Config.POPULATION_SIZE)
         {
-            if(Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.ASEXUAL &&
-                    Config.INITIALIZATION_STRATEGY == Config.InitializationStrategy.RANDOMIZED)
-            {
-                _brain.init();
-            } else
-            {
-                _brain.mutate();
-            }
+            _brain.mutate();
 
             _createIndividual();
         } else
@@ -63,7 +55,7 @@ public class Controller
             {
                 if(Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.ASEXUAL)
                 {
-                    _brain.mutate();
+                    _brain.generate(_dataManager.getBestDna(), false);
                 } else if(Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.SEXUAL)
                 {
                     _brain.merge(_dataManager.getBestDna(), _dataManager.getSecondBestDna());
