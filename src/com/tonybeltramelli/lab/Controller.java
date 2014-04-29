@@ -36,7 +36,7 @@ public class Controller
 
         _display.build(_brain);
 
-        System.out.println("ind : "+_individualCounter+" / "+Config.POPULATION_SIZE+", gen : "+_dataManager.getGenerationNumber()+" / "+Config.GENERATION_NUMBER);
+        System.out.println("ind : " + _individualCounter + " / " + Config.POPULATION_SIZE + ", gen : " + _dataManager.getGenerationNumber() + " / " + Config.GENERATION_NUMBER);
     }
 
     public void saveFitnessScore(int fitnessScore)
@@ -45,18 +45,35 @@ public class Controller
 
         if(_individualCounter < Config.POPULATION_SIZE)
         {
-            _brain.mutate();
+            if(Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.ASEXUAL &&
+                    Config.INITIALIZATION_STRATEGY == Config.InitializationStrategy.RANDOMIZED)
+            {
+                _brain.init();
+            } else
+            {
+                _brain.mutate();
+            }
+
             _createIndividual();
-        }else{
+        } else
+        {
             _individualCounter = 0;
 
             if(_dataManager.getGenerationNumber() < Config.GENERATION_NUMBER)
             {
-                _brain.merge(_dataManager.getBestDna(), _dataManager.getSecondBestDna());
+                if(Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.ASEXUAL)
+                {
+                    _brain.mutate();
+                } else if(Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.SEXUAL)
+                {
+                    _brain.merge(_dataManager.getBestDna(), _dataManager.getSecondBestDna());
+                }
+
                 _dataManager.nextGeneration();
 
                 _createIndividual();
-            }else{
+            } else
+            {
                 _dataManager.print();
 
                 System.exit(0);

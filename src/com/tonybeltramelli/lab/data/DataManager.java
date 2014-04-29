@@ -75,7 +75,10 @@ public class DataManager
     {
         try
         {
-            String content = "";
+            String content = UDate.getDateNowAsString(UDate.DATE_FORMAT) + "\n";
+
+            content += Config.INITIALIZATION_STRATEGY == Config.InitializationStrategy.SEEDED ? "seeded initialization, " : "randomized initialization, ";
+            content += Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.SEXUAL ? "sexual reproduction\n" : "asexual reproduction\n";
 
             for(int generation = 0; generation < _scoresGenerations.size(); generation++)
             {

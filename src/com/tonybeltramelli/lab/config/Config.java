@@ -10,7 +10,7 @@ public class Config
     public static final String RIGHT_SENSOR = "Right sensor :";
     public static final String MAZE_IMAGE = "file:assets/road.png";
     public static final String DATE_MARKER = "{DATE}";
-    public static final String LOG_OUTPUT = "log/log-"+DATE_MARKER+".md";
+    public static final String LOG_OUTPUT = "logs/log-"+DATE_MARKER+".md";
     //
     public static final int SCREEN_WIDTH = 900;
     public static final int SCREEN_HEIGHT = 650;
@@ -22,5 +22,20 @@ public class Config
     public static final boolean USE_KEYBOARD_CONTROL = false;
     //
     public static final int POPULATION_SIZE = 10;
-    public static final int GENERATION_NUMBER = 20;
+    public static final int GENERATION_NUMBER = 10;
+    //
+    public static final ReproductionStrategy REPRODUCTION_STRATEGY = ReproductionStrategy.SEXUAL;
+    public static final InitializationStrategy INITIALIZATION_STRATEGY = InitializationStrategy.RANDOMIZED;
+
+    public static enum ReproductionStrategy
+    {
+        SEXUAL,
+        ASEXUAL
+    }
+
+    public static enum InitializationStrategy
+    {
+        SEEDED,
+        RANDOMIZED
+    }
 }

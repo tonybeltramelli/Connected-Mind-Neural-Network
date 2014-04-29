@@ -64,7 +64,7 @@ public class NeuralNetwork implements Encodable
         return outputValues;
     }
 
-    private void _clear()
+    protected void _clear()
     {
         if(_inputNeurons != null) _inputNeurons.clear();
         if(_outputNeurons != null) _outputNeurons.clear();
