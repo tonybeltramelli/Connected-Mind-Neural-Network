@@ -36,7 +36,10 @@ System.out.println(flexArray);
 ```
 
 ### Neural Network usage
-com.tonybeltramelli.lib.neural
+com.tonybeltramelli.lib.neural.NeuralNetwork
+com.tonybeltramelli.lib.neural.Neuron
+com.tonybeltramelli.lib.neural.InputNeuron
+com.tonybeltramelli.lib.neural.OutputNeuron
 
 ```java
 
