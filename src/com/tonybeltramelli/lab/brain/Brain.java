@@ -15,7 +15,7 @@ public class Brain extends NeuralNetwork
     public Brain()
     {
         super();
-
+        
         if(!Config.USE_BIAS)
         {
             _simpleNetwork();

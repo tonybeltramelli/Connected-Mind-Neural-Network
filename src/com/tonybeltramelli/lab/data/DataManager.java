@@ -88,7 +88,7 @@ public class DataManager
 
                 for(int individual = 0; individual < _scoresGenerations.get(generation).size(); individual++)
                 {
-                    content += "    Organism " + individual + " : " + _scoresGenerations.get(generation).get(individual).getFitnessScore() + "\n";
+                    content += "    Organism " + (individual + 1) + " : " + _scoresGenerations.get(generation).get(individual).getFitnessScore() + "\n";
                     content += "    DNA : " + _scoresGenerations.get(generation).get(individual).getDna() + "\n\n";
                 }
 
