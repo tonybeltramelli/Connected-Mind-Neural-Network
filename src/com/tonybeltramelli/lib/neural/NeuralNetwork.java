@@ -101,7 +101,7 @@ public class NeuralNetwork implements Encodable
         generate(getEncoding(), true);
     }
 
-    public void merge(String dna1, String dna2)
+    public void mate(String dna1, String dna2)
     {
         List<int[]> positionWeight1 = new ArrayList<int[]>();
         List<int[]> positionWeight2 = new ArrayList<int[]>();
@@ -119,6 +119,8 @@ public class NeuralNetwork implements Encodable
         {
             positionWeight2.add(new int[]{matcher.start(), matcher.end()});
         }
+
+        if(positionWeight1.size() != positionWeight2.size()) throw new RuntimeException();
 
         for(int position = 0; position < positionWeight1.size(); position++)
         {
@@ -277,5 +279,20 @@ public class NeuralNetwork implements Encodable
         int id = Integer.parseInt(name.substring(1, name.length()));
 
         return new Pair<Character, Integer>(ch, id);
+    }
+
+    public int getInputNeuronNumber()
+    {
+        return _inputNeurons.size();
+    }
+
+    public int getOutputNeuronNumber()
+    {
+        return _outputNeurons.size();
+    }
+
+    public int getHiddenNeuronNumber()
+    {
+        return _hiddenNeurons.size();
     }
 }

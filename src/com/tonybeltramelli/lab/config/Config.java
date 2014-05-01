@@ -26,7 +26,7 @@ public class Config
     public static final int GENERATION_NUMBER = 20;
     //
     public static final InitializationStrategy INITIALIZATION_STRATEGY = InitializationStrategy.SEEDED;
-    public static final ReproductionStrategy REPRODUCTION_STRATEGY = ReproductionStrategy.SEXUAL;
+    public static final ReproductionStrategy REPRODUCTION_STRATEGY = ReproductionStrategy.ASEXUAL;
 
     public static enum InitializationStrategy
     {

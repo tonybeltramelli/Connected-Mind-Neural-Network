@@ -80,7 +80,10 @@ public class DataManager
             content += "* Start position : " + Config.START_POSITION_X + ", " + Config.START_POSITION_Y + "\n";
             content += "* Initialization : " + (Config.INITIALIZATION_STRATEGY == Config.InitializationStrategy.SEEDED ? "seeded" : "randomized") + "\n";
             content += "* Reproduction : " + (Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.SEXUAL ? "sexual" : "asexual") + "\n";
-            content += "* Use bias node : " + Config.USE_BIAS + "\n\n\n";
+            content += "* Use bias node : " + Config.USE_BIAS + "\n\n";
+
+            content += "## Best DNA \n";
+            content += getBestDnaFromAllGenerations() + "\n\n\n";
 
             for(int generation = 0; generation < _scoresGenerations.size(); generation++)
             {
@@ -107,6 +110,28 @@ public class DataManager
         {
             e.printStackTrace();
         }
+    }
+
+    public String getBestDnaFromAllGenerations()
+    {
+        Score bestScore = new Score(0, "");
+        Score score;
+        List<Score> population;
+
+        for(int i = 0; i < getGenerationNumber(); i ++)
+        {
+            population = _scoresGenerations.get(i);
+            population = _mergeSort(population);
+
+            score = population.get(population.size() - 1);
+
+            if(score.getFitnessScore() > bestScore.getFitnessScore())
+            {
+                bestScore = score;
+            }
+        }
+
+        return bestScore.getDna();
     }
 
     public String getBestDna()

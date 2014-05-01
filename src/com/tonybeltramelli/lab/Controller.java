@@ -58,7 +58,7 @@ public class Controller
                     _brain.generate(_dataManager.getBestDna());
                 } else if(Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.SEXUAL)
                 {
-                    _brain.merge(_dataManager.getBestDna(), _dataManager.getSecondBestDna());
+                    _brain.mate(_dataManager.getBestDna(), _dataManager.getSecondBestDna());
                 }
 
                 _dataManager.nextGeneration();

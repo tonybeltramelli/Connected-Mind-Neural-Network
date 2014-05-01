@@ -1,7 +1,7 @@
 Connected-Mind
 ==============
 
-Artificial Life project implementing Artificial Intelligence and Evolutionary algorithms
+Artificial Life project implementing Artificial Intelligence algorithms : Genetic Algorithms and Evolutionary Algorithms.
 
 ### FlexArray data structure usage
 **com.tonybeltramelli.lib.util.FlexArray**  
