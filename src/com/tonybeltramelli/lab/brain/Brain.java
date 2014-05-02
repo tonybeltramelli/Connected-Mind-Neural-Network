@@ -15,7 +15,7 @@ public class Brain extends NeuralNetwork
     public Brain()
     {
         super();
-        
+
         if(!Config.USE_BIAS)
         {
             _simpleNetwork();
@@ -23,7 +23,7 @@ public class Brain extends NeuralNetwork
             _networkWithBias();
         }
 
-        //generate("i1w1o1i2w1o2o1o2", false);
+        //generate("i1w1o1i2w1o2o1o2");
 
         //System.out.println(getEncoding());
     }
