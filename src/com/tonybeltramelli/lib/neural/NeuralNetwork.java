@@ -141,7 +141,21 @@ public class NeuralNetwork implements Encodable
         generate(dna);
     }
 
-    public void merge(String dna1, String dna2)
+    public void merge(String dnas[])
+    {
+        if(dnas.length < 2) return;
+
+        String lastMergedDna = dnas[0];
+
+        for(int i = 1; i < dnas.length; i ++)
+        {
+            lastMergedDna = _getMergedDna(lastMergedDna, dnas[i]);
+        }
+
+        generate(lastMergedDna);
+    }
+
+    private String _getMergedDna(String dna1, String dna2)
     {
         NeuralNetwork leftNetwork = new NeuralNetwork();
         leftNetwork.generate(dna1);
@@ -190,8 +204,6 @@ public class NeuralNetwork implements Encodable
                 dnaGroup = dnaGroup.substring(0, dnaGroup.indexOf(Encodable.HIDDEN) + 1) + String.valueOf(Integer.parseInt(dnaGroup.substring(dnaGroup.indexOf(Encodable.HIDDEN) + 1, dnaGroup.indexOf(Encodable.WEIGHT))) + leftNetwork.getHiddenNeuronNumber()) + dnaGroup.substring(dnaGroup.indexOf(Encodable.WEIGHT), dnaGroup.length());
 
                 dna1Groups.add(dnaGroup);
-
-                counter = dnaMatcher.end();
             }
         }
 
@@ -202,9 +214,7 @@ public class NeuralNetwork implements Encodable
             mergedDna += dna1Groups.get(i);
         }
 
-        mergedDna += dna1.substring(counter, dna1.length());
-
-        generate(mergedDna);
+        return mergedDna;
     }
 
     @Override

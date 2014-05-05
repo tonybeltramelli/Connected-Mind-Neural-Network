@@ -16,11 +16,17 @@ public class Brain extends NeuralNetwork
     {
         super();
 
-        if(!Config.USE_BIAS)
+        if(!Config.USE_MERGED_NEURAL_NETWORK)
         {
-            _simpleNetwork();
-        }else{
-            _networkWithBias();
+            if(!Config.USE_BIAS)
+            {
+                _simpleNetwork();
+            }else{
+                _networkWithBias();
+            }
+        }else
+        {
+            merge(Config.DNAS_TO_MERGE);
         }
 
         //generate("i1w1o1i2w1o2o1o2");
