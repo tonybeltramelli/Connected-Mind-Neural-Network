@@ -13,7 +13,7 @@
 
 *.dex
 
-*.class
+# *.class
 
 bin/
 gen/

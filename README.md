@@ -3,6 +3,15 @@ Connected-Mind
 
 Artificial Life project implementing Artificial Intelligence algorithms : Genetic Algorithms and Evolutionary Algorithms.
 
+##Usage
+
+```bash
+    GAERConnectedMind <population size> <generation number>
+    GAERConnectedMind <population size> <generation number> <initialization
+```
+
+##Lib
+
 ### FlexArray data structure usage
 **com.tonybeltramelli.lib.util.FlexArray**  
 Custom data structure allowing ArrayList to be filled at any index even if there is no element at the said index.

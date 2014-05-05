@@ -23,11 +23,11 @@ public class Config
     public static final boolean USE_BIAS = false;
     public static final boolean USE_MERGED_NEURAL_NETWORK = false;
     //
-    public static final int POPULATION_SIZE = 10;
-    public static final int GENERATION_NUMBER = 20;
+    public static int POPULATION_SIZE = 10;
+    public static int GENERATION_NUMBER = 20;
     //
-    public static final InitializationStrategy INITIALIZATION_STRATEGY = InitializationStrategy.SEEDED;
-    public static final ReproductionStrategy REPRODUCTION_STRATEGY = ReproductionStrategy.ASEXUAL;
+    public static InitializationStrategy INITIALIZATION_STRATEGY = InitializationStrategy.SEEDED;
+    public static ReproductionStrategy REPRODUCTION_STRATEGY = ReproductionStrategy.ASEXUAL;
 
     public static enum InitializationStrategy
     {
@@ -41,7 +41,7 @@ public class Config
         ASEXUAL
     }
 
-    public static String[] DNAS_TO_MERGE = new String[]{
+    public static final String[] DNAS_TO_MERGE = new String[]{
             "i1w2.938439637344335h1w1.0h2w0.0h3w0.0h4i2w1.0204171807132862h1w0.0h2w1.0h3w0.14204336412992902h4h1w1.0o1w0.3968569905053294o2h2w0.12628746187099615o1w1.0o2h3w0.0o1w4.063536547952453o2h4w0.0o1w0.42215656438888116o2o1o2",
             "i1w3.074657730083155h1w2.0690541621825305h2w1.667235535746976h3w4.66009216855542h4i2w0.0h1w1.0h2w0.0h3w3.4224108916892226h4h1w0.0o1w0.6927707959338774o2h2w0.0o1w1.0o2h3w1.9508770484143305o1w3.496327377351406o2h4w0.0o1w1.5780375288413073o2o1o2",
             "i1w1.2263189033379978h1w0.0h2w0.0h3w4.416779212882293h4i2w0.0h1w0.9490673570811157h2w0.6560221183555179h3w1.2337205808026002h4h1w1.0o1w1.0o2h2w0.40940050950079954o1w1.8168849817731179o2h3w0.0o1w4.080929516285027o2h4w0.0o1w4.627214644070196o2o1o2",

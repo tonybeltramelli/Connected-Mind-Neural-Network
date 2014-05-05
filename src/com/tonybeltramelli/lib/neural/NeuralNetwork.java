@@ -147,7 +147,7 @@ public class NeuralNetwork implements Encodable
 
         String lastMergedDna = dnas[0];
 
-        for(int i = 1; i < dnas.length; i ++)
+        for(int i = 1; i < dnas.length; i++)
         {
             lastMergedDna = _getMergedDna(lastMergedDna, dnas[i]);
         }
@@ -199,7 +199,7 @@ public class NeuralNetwork implements Encodable
                 }
 
                 counter++;
-            }else if(dnaGroup.indexOf(Encodable.HIDDEN) != -1)
+            } else if(dnaGroup.indexOf(Encodable.HIDDEN) != -1)
             {
                 dnaGroup = dnaGroup.substring(0, dnaGroup.indexOf(Encodable.HIDDEN) + 1) + String.valueOf(Integer.parseInt(dnaGroup.substring(dnaGroup.indexOf(Encodable.HIDDEN) + 1, dnaGroup.indexOf(Encodable.WEIGHT))) + leftNetwork.getHiddenNeuronNumber()) + dnaGroup.substring(dnaGroup.indexOf(Encodable.WEIGHT), dnaGroup.length());
 
