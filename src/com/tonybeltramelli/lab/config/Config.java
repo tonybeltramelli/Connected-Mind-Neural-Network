@@ -8,15 +8,15 @@ public class Config
     public static final String WINDOW_TITLE = "Connected Mind";
     public static final String LEFT_SENSOR = "Left sensor :";
     public static final String RIGHT_SENSOR = "Right sensor :";
-    public static final String MAZE_IMAGE = "file:assets/road2.png";
+    public static final String MAZE_IMAGE = "file:assets/road1.png";
     public static final String DATE_MARKER = "{DATE}";
     public static final String LOG_OUTPUT = "logs/log-"+DATE_MARKER+".md";
     //
     public static final int SCREEN_WIDTH = 900;
     public static final int SCREEN_HEIGHT = 650;
     //
-    public static final int START_POSITION_X = 60;
-    public static final int START_POSITION_Y = 200;
+    public static final int START_POSITION_X = 200;
+    public static final int START_POSITION_Y = 500;
     //
     public static final boolean USE_NEURAL_NETWORK = true;
     public static final boolean USE_KEYBOARD_CONTROL = false;
@@ -50,7 +50,7 @@ public class Config
     };
 
     public static final String[] DNAS_SUPER_BRAIN = new String[]{
-            "i1w1.0h1w1.0h2w1.0h3w1.0h4i2w1.0h1w1.0h2w1.0h3w1.0h4h1w1.0o1w1.0o2h2w1.0o1w1.0o2h3w1.0o1w1.0o2h4w1.0o1w1.0o2o1o2",
-            "i1w1o1i2w1o2o1o2"
+            "i1w3.1215754921976004h1w0.0h2w1.6427635843595194h3w1.7451173112588565h4i2w1.0h1w1.2610712343770532h2w0.0h3w0.0h4h1w0.3347776599065755o1w2.00041574581104o2h2w0.8871415878536828o1w0.16086450749337633o2h3w0.0o1w0.9366941950226497o2h4w0.0o1w0.0o2o1o2",
+            "i1w1.2263189033379978h1w0.0h2w0.0h3w4.416779212882293h4i2w0.0h1w0.9490673570811157h2w0.6560221183555179h3w1.2337205808026002h4h1w1.0o1w1.0o2h2w0.40940050950079954o1w1.8168849817731179o2h3w0.0o1w4.080929516285027o2h4w0.0o1w4.627214644070196o2o1o2"
     };
 }

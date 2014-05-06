@@ -6,8 +6,12 @@ Artificial Life project implementing Artificial Intelligence algorithms : Geneti
 ##Usage
 
 ```bash
-    GAERConnectedMind <population size> <generation number>
-    GAERConnectedMind <population size> <generation number> <initialization
+    ConnectedMind <population size> <generation number>
+    ConnectedMind <population size> <generation number> <initialization strategy> <reproduction strategy>
+        <population size>               integer, default : 10
+        <generation number>             integer, default : 20
+        <initialization strategy>       string(SEEDED | RANDOMIZED), default : SEEDED
+        <reproduction strategy>         string(SEXUAL | ASEXUAL), default : ASEXUAL
 ```
 
 ##Lib
@@ -108,8 +112,8 @@ neuralNetworkA.generate("i1w1.0h1i2w1.0h2h1w1.0h3h2w1.0h3h3w1.0o1w1.0o2o1o2");
 NeuralNetwork neuralNetworkB = new NeuralNetwork();
 neuralNetworkB.generate("i1w1.0h1i2w1.77621132977439h2h1w1.115626470054826h3h2w1.0h3h3w1.0o1w1.0o2o1o2");
 
-// Merging
-neuralNetwork.merge(neuralNetworkA.getEncoding(), neuralNetworkB.getEncoding());
+// Mating
+neuralNetwork.mate(neuralNetworkA.getEncoding(), neuralNetworkB.getEncoding());
 
 System.out.println(neuralNetwork.getEncoding());
 // output: i1w1.0h1i2w1.0h2h1w1.115626470054826h3h2w1.0h3h3w1.0o1w1.0o2o1o2
