@@ -78,8 +78,8 @@ public class DataManager
 
             content += "* Environment : "+Config.MAZE_IMAGE.substring(Config.MAZE_IMAGE.indexOf("/") + 1, Config.MAZE_IMAGE.length()) + "\n";
             content += "* Start position : " + Config.START_POSITION_X + ", " + Config.START_POSITION_Y + "\n";
-            content += "* Initialization : " + (Config.INITIALIZATION_STRATEGY == Config.InitializationStrategy.SEEDED ? "seeded" : "randomized") + "\n";
-            content += "* Reproduction : " + (Config.REPRODUCTION_STRATEGY == Config.ReproductionStrategy.SEXUAL ? "sexual" : "asexual") + "\n";
+            content += "* Initialization : " + (Config.initializationStrategy == Config.InitializationStrategy.SEEDED ? "seeded" : "randomized") + "\n";
+            content += "* Reproduction : " + (Config.reproductionStrategy == Config.ReproductionStrategy.SEXUAL ? "sexual" : "asexual") + "\n";
             content += "* Use bias node : " + Config.USE_BIAS + "\n\n";
 
             content += "## Best DNA \n";

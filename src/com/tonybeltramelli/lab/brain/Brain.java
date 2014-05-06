@@ -12,21 +12,46 @@ import com.tonybeltramelli.lib.util.UMath;
  */
 public class Brain extends NeuralNetwork
 {
+    private Brain[] _brains;
+    private boolean _isMainBrain;
+
     public Brain()
+    {
+        this(true);
+    }
+
+    public Brain(boolean isMainBrain)
     {
         super();
 
-        if(!Config.USE_MERGED_NEURAL_NETWORK)
+        _isMainBrain = isMainBrain;
+
+        if(Config.USE_MERGED_NEURAL_NETWORK)
+        {
+            merge(Config.DNAS_TO_MERGE);
+        } else if(Config.USE_SUPER_NEURAL_NETWORK && _isMainBrain)
+        {
+            _brains = new Brain[Config.DNAS_SUPER_BRAIN.length];
+            Brain brain;
+
+            for(int i = 0; i < Config.DNAS_SUPER_BRAIN.length; i ++)
+            {
+                brain = new Brain(false);
+                brain.generate(Config.DNAS_SUPER_BRAIN[i]);
+
+                _brains[i] = brain;
+            }
+
+            _simpleNetwork();
+        } else
         {
             if(!Config.USE_BIAS)
             {
                 _simpleNetwork();
-            }else{
+            } else
+            {
                 _networkWithBias();
             }
-        }else
-        {
-            merge(Config.DNAS_TO_MERGE);
         }
 
         //generate("i1w1o1i2w1o2o1o2");
@@ -38,6 +63,17 @@ public class Brain extends NeuralNetwork
     public double[] run(double[] inputValues)
     {
         double[] outputs = super.run(inputValues);
+
+        if(Config.USE_SUPER_NEURAL_NETWORK && _isMainBrain)
+        {
+            if(outputs[0] >= 1.0)
+            {
+                outputs = _brains[0].run(inputValues);
+            }else if(outputs[1] >= 1.0)
+            {
+                outputs = _brains[1].run(inputValues);
+            }
+        }
 
         for(int output = 0; output < outputs.length; output++)
         {
@@ -144,11 +180,12 @@ public class Brain extends NeuralNetwork
     {
         double weight = 0.0;
 
-        if(Config.INITIALIZATION_STRATEGY == Config.InitializationStrategy.RANDOMIZED)
+        if(Config.initializationStrategy == Config.InitializationStrategy.RANDOMIZED)
         {
             weight = UMath.random(-1.0, 2.0);
             weight = weight < 0.0 ? 0.0 : weight;
-        }else if(Config.INITIALIZATION_STRATEGY == Config.InitializationStrategy.SEEDED){
+        } else if(Config.initializationStrategy == Config.InitializationStrategy.SEEDED)
+        {
             weight = 1.0;
         }
 

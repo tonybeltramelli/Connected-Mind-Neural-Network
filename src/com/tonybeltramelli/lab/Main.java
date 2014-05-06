@@ -23,25 +23,25 @@ public class Main extends Application
         }else{
             if(args[2].equals(Config.InitializationStrategy.SEEDED.toString()))
             {
-                Config.INITIALIZATION_STRATEGY = Config.InitializationStrategy.SEEDED;
+                Config.initializationStrategy = Config.InitializationStrategy.SEEDED;
             }else if(args[2].equals(Config.InitializationStrategy.RANDOMIZED.toString()))
             {
-                Config.INITIALIZATION_STRATEGY = Config.InitializationStrategy.RANDOMIZED;
+                Config.initializationStrategy = Config.InitializationStrategy.RANDOMIZED;
             }
 
             if(args[3].equals(Config.ReproductionStrategy.SEXUAL.toString()))
             {
-                Config.REPRODUCTION_STRATEGY = Config.ReproductionStrategy.SEXUAL;
+                Config.reproductionStrategy = Config.ReproductionStrategy.SEXUAL;
             }else if(args[3].equals(Config.ReproductionStrategy.ASEXUAL.toString()))
             {
-                Config.REPRODUCTION_STRATEGY = Config.ReproductionStrategy.ASEXUAL;
+                Config.reproductionStrategy = Config.ReproductionStrategy.ASEXUAL;
             }
         }
 
         if(args.length >= 2)
         {
-            Config.POPULATION_SIZE = Integer.valueOf(args[0]);
-            Config.GENERATION_NUMBER = Integer.valueOf(args[1]);
+            Config.populationSize = Integer.valueOf(args[0]);
+            Config.generationNumber = Integer.valueOf(args[1]);
         }
 
         launch(args);
