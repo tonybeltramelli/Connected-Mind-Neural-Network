@@ -3,6 +3,9 @@ Connected-Mind-Neural-Network
 
 Neuroevolution project implementing Evolutionary Algorithm and Genetic Algorithm
 
+Project demo video  
+<https://www.youtube.com/watch?v=vfZGyZp81aI&feature=youtu.be>
+
 ##Usage
 
 ```bash
