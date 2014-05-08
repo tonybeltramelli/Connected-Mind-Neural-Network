@@ -18,11 +18,11 @@ public class Config
     public static final int START_POSITION_X = 200;
     public static final int START_POSITION_Y = 500;
     //
-    public static final boolean USE_NEURAL_NETWORK = false;
-    public static final boolean USE_KEYBOARD_CONTROL = true;
+    public static final boolean USE_NEURAL_NETWORK = true;
+    public static final boolean USE_KEYBOARD_CONTROL = false;
     public static final boolean USE_BIAS = false;
     public static final boolean USE_MERGED_NEURAL_NETWORK = false;
-    public static final boolean USE_SUPER_NEURAL_NETWORK = false;
+    public static final boolean USE_SUPER_NEURAL_NETWORK = true;
     //
     public static int populationSize = 10;
     public static int generationNumber = 20;
