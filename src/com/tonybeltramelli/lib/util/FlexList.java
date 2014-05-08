@@ -5,9 +5,9 @@ import java.util.ArrayList;
 /**
  * @author Tony Beltramelli www.tonybeltramelli.com - created 24/04/2014
  */
-public class FlexArray<T> extends ArrayList<T>
+public class FlexList<T> extends ArrayList<T>
 {
-    public FlexArray()
+    public FlexList()
     {
         super();
     }

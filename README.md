@@ -6,44 +6,44 @@ Neuroevolution project implementing Evolutionary Algorithm and Genetic Algorithm
 ##Usage
 
 ```bash
-    ConnectedMindNeuralNetwork <population size> <generation number>
-    ConnectedMindNeuralNetwork <population size> <generation number> <initialization strategy> <reproduction strategy>
-        <population size>               integer, default : 10
-        <generation number>             integer, default : 20
-        <initialization strategy>       string(SEEDED | RANDOMIZED), default : SEEDED
-        <reproduction strategy>         string(SEXUAL | ASEXUAL), default : ASEXUAL
+ConnectedMindNeuralNetwork <population size> <generation number>
+ConnectedMindNeuralNetwork <population size> <generation number> <initialization strategy> <reproduction strategy>
+    <population size>               integer, default : 10
+    <generation number>             integer, default : 20
+    <initialization strategy>       string(SEEDED | RANDOMIZED), default : SEEDED
+    <reproduction strategy>         string(SEXUAL | ASEXUAL), default : ASEXUAL
 ```
 
 ##Lib
 
-### FlexArray data structure usage
-**com.tonybeltramelli.lib.util.FlexArray**  
+### FlexList data structure usage
+**com.tonybeltramelli.lib.util.FlexList**  
 Custom data structure allowing ArrayList to be filled at any index even if there is no element at the said index.
 
 ```java
 
-FlexArray<String> flexArray = new FlexArray<String>();
-flexArray.add("value 1");
-flexArray.add("value 2");
+FlexList<String> flexList = new FlexList<String>();
+flexList.add("value 1");
+flexList.add("value 2");
 
-System.out.println(flexArray);
+System.out.println(flexList);
 // output: [value 1, value 2]
 
-flexArray.add(4, "value 4");
-flexArray.add("value 5");
-flexArray.add(6, "value 6");
+flexList.add(4, "value 4");
+flexList.add("value 5");
+flexList.add(6, "value 6");
 
-System.out.println(flexArray);
+System.out.println(flexList);
 // output: [value 1, value 2, null, null, value 4, value 5, value 6]
 
-flexArray.add(4, "new 4", false);
+flexList.add(4, "new 4", false);
 
-System.out.println(flexArray);
+System.out.println(flexList);
 // output: [value 1, value 2, null, null, value 4, value 5, value 6]
 
-flexArray.add(4, "new 4", true);
+flexList.add(4, "new 4", true);
 
-System.out.println(flexArray);
+System.out.println(flexList);
 // output: [value 1, value 2, null, null, new 4, value 5, value 6]
 
 ```

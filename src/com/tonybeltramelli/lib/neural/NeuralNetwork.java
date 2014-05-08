@@ -1,6 +1,6 @@
 package com.tonybeltramelli.lib.neural;
 
-import com.tonybeltramelli.lib.util.FlexArray;
+import com.tonybeltramelli.lib.util.FlexList;
 import com.tonybeltramelli.lib.util.RegExp;
 import com.tonybeltramelli.lib.util.UMath;
 import javafx.util.Pair;
@@ -14,9 +14,9 @@ import java.util.regex.Matcher;
  */
 public class NeuralNetwork implements Encodable
 {
-    private FlexArray<InputNeuron> _inputNeurons;
-    private FlexArray<OutputNeuron> _outputNeurons;
-    private FlexArray<Neuron> _hiddenNeurons;
+    private FlexList<InputNeuron> _inputNeurons;
+    private FlexList<OutputNeuron> _outputNeurons;
+    private FlexList<Neuron> _hiddenNeurons;
 
     public NeuralNetwork()
     {
@@ -70,9 +70,9 @@ public class NeuralNetwork implements Encodable
         if(_outputNeurons != null) _outputNeurons.clear();
         if(_hiddenNeurons != null) _hiddenNeurons.clear();
 
-        _inputNeurons = new FlexArray<InputNeuron>();
-        _outputNeurons = new FlexArray<OutputNeuron>();
-        _hiddenNeurons = new FlexArray<Neuron>();
+        _inputNeurons = new FlexList<InputNeuron>();
+        _outputNeurons = new FlexList<OutputNeuron>();
+        _hiddenNeurons = new FlexList<Neuron>();
     }
 
     private void _reset()
