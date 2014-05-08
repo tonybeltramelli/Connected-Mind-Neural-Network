@@ -3,6 +3,8 @@ Connected-Mind-Neural-Network
 
 Neuroevolution project implementing Evolutionary Algorithm and Genetic Algorithm
 
+Student project Spring 2014 - [IT University of Copenhagen](www.itu.dk/en)
+
 Project demo video  
 <https://www.youtube.com/watch?v=vfZGyZp81aI&feature=youtu.be>
 
