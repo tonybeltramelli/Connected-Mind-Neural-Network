@@ -22,7 +22,7 @@ public class Config
     public static final boolean USE_KEYBOARD_CONTROL = false;
     public static final boolean USE_BIAS = false;
     public static final boolean USE_MERGED_NEURAL_NETWORK = false;
-    public static final boolean USE_SUPER_NEURAL_NETWORK = true;
+    public static final boolean USE_SUPER_NEURAL_NETWORK = false;
     //
     public static int populationSize = 10;
     public static int generationNumber = 20;
