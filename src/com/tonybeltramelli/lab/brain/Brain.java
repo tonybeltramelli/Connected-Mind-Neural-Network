@@ -53,10 +53,6 @@ public class Brain extends NeuralNetwork
                 _networkWithBias();
             }
         }
-
-        //generate("i1w1o1i2w1o2o1o2");
-
-        //System.out.println(getEncoding());
     }
 
     @Override

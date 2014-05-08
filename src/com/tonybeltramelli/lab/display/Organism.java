@@ -102,14 +102,14 @@ public class Organism extends Sprite implements Updatable
     {
         _lifeTime++;
 
-        _checkCollision();
-
         Image dataLeft = _getDataFromSensor(_leftSensor);
         Image dataRight = _getDataFromSensor(_rightSensor);
 
         _environment.displayOrganismVision(dataLeft, dataRight);
 
         if(Config.USE_KEYBOARD_CONTROL) return;
+
+        _checkCollision();
 
         int inputLeft = _checkEnvironment(dataLeft);
         int inputRight = _checkEnvironment(dataRight);

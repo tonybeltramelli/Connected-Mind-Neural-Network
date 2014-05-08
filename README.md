@@ -1,13 +1,13 @@
-Connected-Mind
-==============
+Connected-Mind-Neural-Network
+=============================
 
-Artificial Life project implementing Artificial Intelligence algorithms : Genetic Algorithms and Evolutionary Algorithms.
+Neuroevolution project implementing Evolutionary Algorithm and Genetic Algorithm
 
 ##Usage
 
 ```bash
-    ConnectedMind <population size> <generation number>
-    ConnectedMind <population size> <generation number> <initialization strategy> <reproduction strategy>
+    ConnectedMindNeuralNetwork <population size> <generation number>
+    ConnectedMindNeuralNetwork <population size> <generation number> <initialization strategy> <reproduction strategy>
         <population size>               integer, default : 10
         <generation number>             integer, default : 20
         <initialization strategy>       string(SEEDED | RANDOMIZED), default : SEEDED

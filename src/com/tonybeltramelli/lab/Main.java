@@ -14,8 +14,8 @@ public class Main extends Application
         if(args.length != 4)
         {
             System.out.println("Usage: \n");
-            System.out.println("    ConnectedMind <population size> <generation number>\n");
-            System.out.println("    ConnectedMind <population size> <generation number> <initialization strategy> <reproduction strategy>\n");
+            System.out.println("    ConnectedMindNeuralNetwork <population size> <generation number>\n");
+            System.out.println("    ConnectedMindNeuralNetwork <population size> <generation number> <initialization strategy> <reproduction strategy>\n");
             System.out.println("        <population size>               integer, default : 10\n");
             System.out.println("        <generation number>             integer, default : 20\n");
             System.out.println("        <initialization strategy>       string(SEEDED | RANDOMIZED), default : SEEDED\n");
